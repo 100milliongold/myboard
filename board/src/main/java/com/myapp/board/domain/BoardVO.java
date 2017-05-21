@@ -2,16 +2,21 @@ package com.myapp.board.domain;
  
 import java.util.Date;
  
-public class BoardVO implements BoardDetails {
+public class BoardVO {
  
     private int bno;
     private String subject;
     private String content;
     private String writer;
     private Date reg_date;
+    
+   
+    
     private int hit;
  
-    public int getBno() {
+
+
+	public int getBno() {
         return bno;
     }
  

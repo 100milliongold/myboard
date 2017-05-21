@@ -6,28 +6,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.myapp.board.mapper.BoardMapper">
  
     <insert id="boardInsert" parameterType="com.myapp.board.domain.BoardVO">
-        insert into board_pro
+        insert into board_${boardconfig.board_table}
             values
-        (BOARD_SEQUENCE.NEXTVAL,#{subject},#{content},#{writer},SYSDATE,0)
+        (BOARD_SEQUENCE.NEXTVAL,#{board.subject},#{board.content},#{board.writer},SYSDATE,0)
     </insert>
     
-    <select id="boardList" resultType="com.myapp.board.domain.BoardVO">
-        select * from board_pro
+    <!-- 게시판 목록 -->
+    <select id="boardList" parameterType="hashmap" resultType="com.myapp.board.domain.BoardVO">
+        select * from board_${boardconfig.board_table}
     </select>
- 
-    <select id="boardView" parameterType="int" resultType="com.myapp.board.domain.BoardVO">
-        select * from board_pro where bno = #{bno}
+ 	
+ 	<!-- 게시판 보기 -->
+    <select id="boardView" parameterType="hashmap" resultType="com.myapp.board.domain.BoardVO">
+        select * from board_${boardconfig.board_table} where bno = #{bno}
     </select>
     
-    <update id="hitPlus" parameterType="int">
-        update board_pro set hit = hit+1 where bno = #{bno}
+    <!-- 조회수증가 -->
+    <update id="hitPlus" parameterType="hashmap">
+        update board_${boardconfig.board_table} set hit = hit+1 where bno = #{bno}
     </update>
     
-    <update id="boardUpdate" parameterType="com.myapp.board.domain.BoardVO">
-        update board_pro set subject = #{subject}, content = #{content} where bno = #{bno}
+    <update id="boardUpdate" parameterType="hashmap">
+        update board_${boardconfig.board_table} set subject = #{board.subject}, content = #{board.content} where bno = #{bno}
     </update>
     
-    <delete id="boardDelete" parameterType="int">
-        delete from board_pro where bno = #{bno}
+    <delete id="boardDelete" parameterType="hashmap">
+        delete from board_${boardconfig.board_table} where bno = #{bno}
     </delete>
 </mapper>

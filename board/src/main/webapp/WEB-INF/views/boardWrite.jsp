@@ -12,9 +12,9 @@
 <title>게시글 작성</title>
 </head>
 <body>
-    <h3>게시글 작성</h3>
+    <h3>${boardconfig.board_name} 게시글 작성</h3>
     <div style="padding : 30px;">
-        <form method="POST" action="/board/post">
+        <form method="POST" action="/board/${boardconfig.board_table}/post">
           <div class="form-group">
             <label>제목</label>
             <input type="text" name="subject" class="form-control">

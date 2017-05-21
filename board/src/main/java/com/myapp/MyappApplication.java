@@ -14,10 +14,16 @@ import org.springframework.web.filter.HiddenHttpMethodFilter;
  
 @SpringBootApplication
 @MapperScan(value = {"com.myapp.board.mapper"})
-public class BoardApplication {
+public class MyappApplication {
  
-    public static void main(String[] args) {
-        SpringApplication.run(BoardApplication.class, args);
+    public static void main(String[] args) {        
+        SpringApplication app = new SpringApplication(MyappApplication.class);
+        System.out.print("Starting app with System Args: [" );
+        for (String s : args) {
+          System.out.print(s + " ");
+        }
+        System.out.println("]");
+        app.run(args);
     }
     
     /**

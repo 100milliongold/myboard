@@ -12,8 +12,8 @@
 <title>게시글 목록</title>
 </head>
 <body>
-    <h3>게시글 목록</h3>
-    <button class="btn btn-primary" style="float : right;" onclick="location.href='/board/post'">작성</button>
+    <h3>${boardconfig.board_name} 게시글 목록</h3>
+    <button class="btn btn-primary" style="float : right;" onclick="location.href='/board/${boardconfig.board_table}/post'">작성</button>
     <table class="table">
         <tr>
             <th>No</th>
@@ -25,7 +25,7 @@
         <c:forEach var="board" items="${list}">
         <tr>
             <td>${board.bno}</td>
-            <td><a href="/board/${board.bno}">${board.subject}</a></td>
+            <td><a href="/board/${boardconfig.board_table}/${board.bno}">${board.subject}</a></td>
             <td>${board.writer}</td>
             <td><fmt:formatDate value="${board.reg_date}" pattern="MM/ dd" /></td>
             <td>${board.hit}</td>

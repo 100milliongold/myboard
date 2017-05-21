@@ -36,8 +36,8 @@
         <p>${board.content}</p>
       </div>
       <div class="form-group">
-          <input type="button" value="수정" onclick='location.href="/board/post/${board.bno}"'>
-          <form:form action="/board/post/${board.bno}" method="DELETE">
+          <input type="button" value="수정" onclick='location.href="/board/${boardconfig.board_table}/post/${board.bno}"'>
+          <form:form action="/board/${boardconfig.board_table}/post/${board.bno}" method="DELETE">
               <input type="submit" value="삭제">
           </form:form>
       </div>

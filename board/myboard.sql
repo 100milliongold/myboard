@@ -1,5 +1,5 @@
 --------------------------------------------------------
---  ∆ƒ¿œ¿Ã ª˝º∫µ  - ≈‰ø‰¿œ-5ø˘-20-2017   
+--  ÌååÏùºÏù¥ ÏÉùÏÑ±Îê® - ÏùºÏöîÏùº-5Ïõî-21-2017   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Table AUTHORITY
@@ -29,6 +29,28 @@
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "BOARD" ;
+
+   COMMENT ON COLUMN "BOARD"."BOARD_PRO"."BNO" IS 'Í∏∞Î≥∏ÌÇ§';
+   COMMENT ON COLUMN "BOARD"."BOARD_PRO"."SUBJECT" IS 'ÌÉÄÏù¥ÌãÄ';
+   COMMENT ON COLUMN "BOARD"."BOARD_PRO"."CONTENT" IS 'ÎÇ¥Ïö©';
+   COMMENT ON COLUMN "BOARD"."BOARD_PRO"."WRITER" IS 'ÏûëÏÑ±Ïûê';
+   COMMENT ON COLUMN "BOARD"."BOARD_PRO"."REG_DATE" IS 'Í≤åÏãúÏùº';
+   COMMENT ON COLUMN "BOARD"."BOARD_PRO"."HIT" IS 'ÏùΩÏùÄÏàò';
+--------------------------------------------------------
+--  DDL for Table BOARDCONFIG
+--------------------------------------------------------
+
+  CREATE TABLE "BOARD"."BOARDCONFIG" 
+   (	"BOARD_TABLE" VARCHAR2(50 BYTE), 
+	"BOARD_TITLE" VARCHAR2(50 BYTE)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "BOARD" ;
+
+   COMMENT ON COLUMN "BOARD"."BOARDCONFIG"."BOARD_TABLE" IS 'ÌÖåÏù¥Î∏îÎ™Ö';
+   COMMENT ON COLUMN "BOARD"."BOARDCONFIG"."BOARD_TITLE" IS 'Í≤åÏãúÌåêÏù¥Î¶Ñ';
 --------------------------------------------------------
 --  DDL for Table MEMBER
 --------------------------------------------------------
@@ -50,11 +72,14 @@ REM INSERTING into BOARD.AUTHORITY
 SET DEFINE OFF;
 REM INSERTING into BOARD.BOARD_PRO
 SET DEFINE OFF;
-Insert into BOARD.BOARD_PRO (BNO,SUBJECT,CONTENT,WRITER,REG_DATE,HIT) values (9,'§≤',null,'§±§§§∑',to_date('17/05/19','RR/MM/DD'),0);
-Insert into BOARD.BOARD_PRO (BNO,SUBJECT,CONTENT,WRITER,REG_DATE,HIT) values (1,'§±§§§∑','∞≥Ωÿ±Ó!!!!','§±§§§∑',to_date('17/05/19','RR/MM/DD'),2);
-Insert into BOARD.BOARD_PRO (BNO,SUBJECT,CONTENT,WRITER,REG_DATE,HIT) values (4,'§±§§§∑','dasdasd','§±§§§∑',to_date('17/05/19','RR/MM/DD'),0);
-Insert into BOARD.BOARD_PRO (BNO,SUBJECT,CONTENT,WRITER,REG_DATE,HIT) values (6,'∫¥Ω≈∞∞≥◊','Ω÷!','∑πæÀ',to_date('17/05/19','RR/MM/DD'),0);
-Insert into BOARD.BOARD_PRO (BNO,SUBJECT,CONTENT,WRITER,REG_DATE,HIT) values (7,'ø•∫¥',null,'§±§§§∑',to_date('17/05/19','RR/MM/DD'),0);
+Insert into BOARD.BOARD_PRO (BNO,SUBJECT,CONTENT,WRITER,REG_DATE,HIT) values (9,'„ÖÇ',null,'„ÖÅ„Ñ¥„Öá',to_date('17/05/19','RR/MM/DD'),4);
+Insert into BOARD.BOARD_PRO (BNO,SUBJECT,CONTENT,WRITER,REG_DATE,HIT) values (21,'„ÖÅ„Ñ¥„Öá','ÎÇúÏ¢Ä Ï≤úÏû¨Ïù∏ÎìØ?','„ÖÅ„Ñ¥„Öá',to_date('17/05/21','RR/MM/DD'),9);
+Insert into BOARD.BOARD_PRO (BNO,SUBJECT,CONTENT,WRITER,REG_DATE,HIT) values (1,'„ÖÅ„Ñ¥„Öá','Í∞úÏåîÍπå!!!!','„ÖÅ„Ñ¥„Öá',to_date('17/05/19','RR/MM/DD'),12);
+Insert into BOARD.BOARD_PRO (BNO,SUBJECT,CONTENT,WRITER,REG_DATE,HIT) values (4,'„ÖÅ„Ñ¥„Öá','dasdasd','„ÖÅ„Ñ¥„Öá',to_date('17/05/19','RR/MM/DD'),0);
+Insert into BOARD.BOARD_PRO (BNO,SUBJECT,CONTENT,WRITER,REG_DATE,HIT) values (7,'„Öã„Öã„Öã„Öã„Öã','ÎÇú Ïó≠Ïãú Ï≤úÏû¨Ïïº','„ÖÅ„Ñ¥„Öá',to_date('17/05/19','RR/MM/DD'),2);
+REM INSERTING into BOARD.BOARDCONFIG
+SET DEFINE OFF;
+Insert into BOARD.BOARDCONFIG (BOARD_TABLE,BOARD_TITLE) values ('pro','ÌÖåÏä§Ìä∏');
 REM INSERTING into BOARD.MEMBER
 SET DEFINE OFF;
 --------------------------------------------------------
@@ -62,6 +87,15 @@ SET DEFINE OFF;
 --------------------------------------------------------
 
   CREATE UNIQUE INDEX "BOARD"."BOARD_PRO_PK" ON "BOARD"."BOARD_PRO" ("BNO") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "BOARD" ;
+--------------------------------------------------------
+--  DDL for Index BOARD_CONFIG_PK
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "BOARD"."BOARD_CONFIG_PK" ON "BOARD"."BOARDCONFIG" ("BOARD_TABLE") 
   PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
@@ -94,6 +128,16 @@ SET DEFINE OFF;
   ALTER TABLE "BOARD"."BOARD_PRO" MODIFY ("WRITER" NOT NULL ENABLE);
   ALTER TABLE "BOARD"."BOARD_PRO" MODIFY ("SUBJECT" NOT NULL ENABLE);
   ALTER TABLE "BOARD"."BOARD_PRO" MODIFY ("BNO" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table BOARDCONFIG
+--------------------------------------------------------
+
+  ALTER TABLE "BOARD"."BOARDCONFIG" ADD CONSTRAINT "BOARD_CONFIG_PK" PRIMARY KEY ("BOARD_TABLE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "BOARD"  ENABLE;
+  ALTER TABLE "BOARD"."BOARDCONFIG" MODIFY ("BOARD_TABLE" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table MEMBER
 --------------------------------------------------------
