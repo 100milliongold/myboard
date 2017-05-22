@@ -3,7 +3,7 @@ package com.myapp;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-// /board/src/main/webapp/resources Àº ¸®¼Ò½º Æú´õ
+// /board/src/main/webapp/resources ì€ ë¦¬ì†ŒìŠ¤ í´ë”
 public class WebConfig extends WebMvcConfigurerAdapter{
 	@Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

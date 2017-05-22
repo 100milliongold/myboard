@@ -4,17 +4,18 @@ import java.util.List;
 
 import com.myapp.board.domain.BoardConfigVO;
 
+//ê²Œì‹œíŒ í™˜ê²½ì„¤ì •
 public interface BoardConfigMapper {
 	
-//	//°Ô½ÃÆÇ »ı¼º
+//	//ê²Œì‹œíŒ ìƒì„± ë‚˜ì¤‘ì—
 //	public void boardCreate(BoardConfigVO vo)throws Exception;
 //	
-//	//°Ô½ÃÆÇ ¼³Á¤
+//	//ê²Œì‹œíŒ ì„¤ì • ë‚˜ì¤‘ì—
 //	public void boardUpdate(BoardConfigVO vo)throws Exception;
 	
-	//°Ô½ÃÆÇ ¸ñ·Ï
+	//ê²Œì‹œíŒ ëª©ë¡
 	public List<BoardConfigVO> boardConfigList()throws Exception;
 	
-	//°Ô½ÃÆÇ ¼³Á¤º¸±â
+	//ê²Œì‹œíŒ ì„¤ì •ë³´ê¸°
 	public BoardConfigVO boardConfigView(String vo)throws Exception;
 }

@@ -4,26 +4,26 @@ package com.myapp.board.mapper;
 import java.util.HashMap;
 import java.util.List;
 
-import com.myapp.board.domain.BoardConfigVO;
 import com.myapp.board.domain.BoardVO;
- 
+
+//ê²Œì‹œíŒ ë°ì´í„°
 public interface BoardMapper {
  
-    //±ÛÀÛ¼º
+    //ê¸€ì‘ì„±
     public void boardInsert(HashMap<String, Object> map)throws Exception;
     
-    //±Û¸ñ·Ï
+    //ê¸€ëª©ë¡
     public List<BoardVO> boardList(HashMap<String, Object> map)throws Exception;
     
-    //±Ûº¸±â
+    //ê¸€ë³´ê¸°
     public BoardVO boardView(HashMap<String, Object> map)throws Exception;
     
-    //Á¶È¸¼ö Áõ°¡
+    //ì¡°íšŒìˆ˜ ì¦ê°€
     public void hitPlus(HashMap<String, Object> map)throws Exception;
     
-    //±Û¼öÁ¤
+    //ê¸€ìˆ˜ì •
     public void boardUpdate(HashMap<String, Object> map)throws Exception;
     
-    //±Û»èÁ¦
+    //ê¸€ì‚­ì œ
     public void boardDelete(HashMap<String, Object> map)throws Exception;
 }

@@ -13,7 +13,6 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
  
 @SpringBootApplication
-@MapperScan(value = {"com.myapp.board.mapper"})
 public class MyappApplication {
  
     public static void main(String[] args) {        
@@ -27,7 +26,7 @@ public class MyappApplication {
     }
     
     /**
-     * SqlSessionFactory ¼³Á¤
+     * SqlSessionFactory ì„¤ì •
      */
     @Bean
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource)throws Exception{

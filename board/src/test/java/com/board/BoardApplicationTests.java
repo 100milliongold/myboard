@@ -24,7 +24,7 @@ public class BoardApplicationTests {
     }
     
     @Test
-    public void testMapper() throws Exception{//ÀÛ¼º
+    public void testMapper() throws Exception{//ï¿½Û¼ï¿½
     	//BoardConfigMapper vo = new BoardConfigMapper();
         mapper.boardConfigView("test");
     }

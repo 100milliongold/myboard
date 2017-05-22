@@ -3,6 +3,7 @@ package com.myapp.board.controller;
 import java.util.HashMap;
 import java.util.List;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,6 +19,7 @@ import com.myapp.board.mapper.BoardMapper;
  
 @Controller
 @RequestMapping("/board/{board_table}")
+@MapperScan(value = {"com.myapp.board.mapper"})
 public class BoardController {
  
     @Autowired
@@ -47,7 +49,7 @@ public class BoardController {
         List<BoardVO> list = boardMapper.boardList(map);
         
         //모델겍체 생성
-        ModelAndView modelandview = new ModelAndView("boardList");
+        ModelAndView modelandview = new ModelAndView("/board/boardList");
         modelandview.addObject("list",list);
         modelandview.addObject("boardconfig",boardconfig);
         
@@ -67,7 +69,7 @@ public class BoardController {
     	}
     	
     	//모델겍체 생성
-    	ModelAndView modelandview = new ModelAndView("boardWrite");
+    	ModelAndView modelandview = new ModelAndView("/board/boardWrite");
     	modelandview.addObject("boardconfig",boardconfig);
         
     	//뷰파일 불려오기
@@ -116,7 +118,7 @@ public class BoardController {
         boardMapper.hitPlus(map);
         
         //모델겍체 생성
-    	ModelAndView modelandview = new ModelAndView("boardView");
+    	ModelAndView modelandview = new ModelAndView("/board/boardView");
     	modelandview.addObject("boardconfig",boardconfig);
     	modelandview.addObject("board",board);
         
@@ -142,7 +144,7 @@ public class BoardController {
         BoardVO board = boardMapper.boardView(map);
         
         //모델겍체 생성
-    	ModelAndView modelandview = new ModelAndView("boardUpdate");
+    	ModelAndView modelandview = new ModelAndView("/board/boardUpdate");
     	modelandview.addObject("boardconfig",boardconfig);
     	modelandview.addObject("board",board);
         
