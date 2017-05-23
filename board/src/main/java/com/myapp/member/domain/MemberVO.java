@@ -1,6 +1,11 @@
 package com.myapp.member.domain;
 
-public class MemberVO {
+import java.util.Collection;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+public class MemberVO implements UserDetails{
 	
 	private String username;
 	private String password;
@@ -10,6 +15,8 @@ public class MemberVO {
 	private String id_credentials_non_expired;
 	private String id_enabled;
 	
+	private Collection<? extends GrantedAuthority> authorities;
+
 	
 	public String getUsername() {
 		return username;
@@ -53,4 +60,39 @@ public class MemberVO {
 	public void setId_enabled(String id_enabled) {
 		this.id_enabled = id_enabled;
 	}
+	
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return authorities;
+	}
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		//return (is_account_non_expired=="1")?true:false;
+		return true;
+	}
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+//		return (is_account_non_locked=="1")?true:false;
+		return true;
+	}
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+//		return (id_credentials_non_expired=="1")?true:false;
+		return true;
+	}
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+//		return (id_enabled=="1")?true:false;
+		return true;
+	}
+	
+	public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+		this.authorities = authorities;
+	}
+	
 }

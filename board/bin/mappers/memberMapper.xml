@@ -11,4 +11,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         (#{member.username},#{member.password},#{member.name})
     </insert>
     
+    
+    <select id="readUser" parameterType="String" resultType="com.myapp.member.domain.MemberVO">
+          SELECT * FROM MEMBER WHERE username = #{username}
+     </select>
+     
+     <select id="readAuthority" parameterType="String" resultType="org.springframework.security.core.authority.SimpleGrantedAuthority">
+          SELECT AUTHORITY_NAME FROM AUTHORITY WHERE username = #{username}
+     </select>
+     
+      <insert id="createUser" parameterType="com.myapp.member.domain.MemberVO">
+          INSERT INTO MEMBER (username, password, name, IS_ACCOUNT_NON_EXPIRED, IS_ACCOUNT_NON_LOCKED, IS_CREDENTIALS_NON_EXPIRED, IS_ENABLED)
+                    VALUES (#{username}, #{password}, #{name}, #{is_account_non_expired}, #{is_account_non_locked}, #{id_credentials_non_expired}, #{id_enabled})
+     </insert>
+     
+     <insert id="createAuthority" parameterType="org.springframework.security.core.GrantedAuthority">
+          INSERT INTO AUTHORITY (username, authority_name)
+                    VALUES
+                         <foreach item="authority" index="index" collection="authorities" separator=",">
+                              (#{username}, #{authority})
+                         </foreach>
+     </insert>
+     
+     <delete id="deleteUser" parameterType="String">
+          DELETE FROM MEMBER WHERE username = #{username}
+     </delete>
+     
+     <delete id="deleteAuthority" parameterType="String">
+          DELETE FROM AUTHORITY WHERE username = #{username}
+     </delete>
+    
 </mapper>

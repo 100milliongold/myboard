@@ -1,4 +1,4 @@
-package com.myapp;
+package com.myapp.config;
 
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
