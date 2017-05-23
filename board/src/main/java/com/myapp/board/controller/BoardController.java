@@ -1,6 +1,5 @@
 package com.myapp.board.controller;
  
-import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.annotation.MapperScan;
@@ -23,30 +22,17 @@ import com.myapp.board.mapper.BoardMapper;
 public class BoardController {
  
     @Autowired
-    private BoardMapper boardMapper;
-    @Autowired
-    private BoardConfigMapper boardConfigMapper;
+    private BoardService boardService;
     
     
     //게시글 목록
     @RequestMapping(method=RequestMethod.GET)
     public ModelAndView list(@PathVariable("board_table") String board_table) throws Exception{
     	
-    	//게시판 기본정보 얻기
-    	BoardConfigVO boardconfig = boardConfigMapper.boardConfigView(board_table.toLowerCase());
-    	
-    	//찾는 게시판이 없을경우
-    	if(boardconfig == null){
-    		 return new ModelAndView("/scripts/alert");
-    	}
-    	
-    	//게시판리스트를 불려오기전에 해시맵을 통하여 여러개의 정보추출
-    	HashMap<String, Object> map = new HashMap<String, Object>();
-    	map.put("boardconfig", boardconfig); //게시판설정 삽입
-
-    	
     	//게시판 불려오기
-        List<BoardVO> list = boardMapper.boardList(map);
+        List<BoardVO> list = boardService.boardList(board_table);
+        //게시판 속성보기
+        BoardConfigVO boardconfig = boardService.boardConfigView(board_table);
         
         //모델겍체 생성
         ModelAndView modelandview = new ModelAndView("/board/boardList");
@@ -61,12 +47,8 @@ public class BoardController {
     @RequestMapping(value="/post",method=RequestMethod.GET)
     public ModelAndView writeForm(@PathVariable("board_table") String board_table) throws Exception{
     	
-    	//게시판 기본정보 얻기
-    	BoardConfigVO boardconfig = boardConfigMapper.boardConfigView(board_table.toLowerCase());
-    	//찾는 게시판이 없을경우
-    	if(boardconfig == null){
-    		 return new ModelAndView("/scripts/alert");
-    	}
+    	//게시판 속성보기
+        BoardConfigVO boardconfig = boardService.boardConfigView(board_table);
     	
     	//모델겍체 생성
     	ModelAndView modelandview = new ModelAndView("/board/boardWrite");
@@ -79,20 +61,9 @@ public class BoardController {
     //게시글 작성(POST)
     @RequestMapping(value="/post",method=RequestMethod.POST)
     public String write(@ModelAttribute("BoardVO") BoardVO board,@PathVariable("board_table") String board_table) throws Exception{
-    	//게시판 기본정보 얻기
-    	BoardConfigVO boardconfig = boardConfigMapper.boardConfigView(board_table.toLowerCase());
-    	//찾는 게시판이 없을경우
-    	if(boardconfig == null){
-    		 return "잘못된 경로입니다.";
-    	}
     	
-    	//저장하기전에 여러파라미터를 해시맵을 통하여 전송
-    	HashMap<String, Object> map = new HashMap<String, Object>();
-    	map.put("boardconfig", boardconfig); //게시판설정 삽입
-    	map.put("board", board); //게시판 입력값
-       
-    	//데이터 저장
-    	boardMapper.boardInsert(map);
+        //게시판 저장
+        boardService.boardInsert(board_table, board);
         
         return "redirect:/board/"+board_table;
     }
@@ -101,21 +72,10 @@ public class BoardController {
     @RequestMapping(value="/{bno}",method=RequestMethod.GET)
     public ModelAndView view(@PathVariable("bno") int bno,@PathVariable("board_table") String board_table) throws Exception{
     	
-    	//게시판 기본정보 얻기
-    	BoardConfigVO boardconfig = boardConfigMapper.boardConfigView(board_table.toLowerCase());
-    	//찾는 게시판이 없을경우
-    	if(boardconfig == null){
-    		return new ModelAndView("/scripts/alert");
-    	}
-    	
-    	//조회하기전에 여러파라미터를 해시맵을 통하여 전송
-    	HashMap<String, Object> map = new HashMap<String, Object>();
-    	map.put("boardconfig", boardconfig); //게시판설정 삽입
-    	map.put("bno", bno); //게시판조회번호 삽입
-    	
-        BoardVO board = boardMapper.boardView(map);
+    	BoardVO board = boardService.boardView(board_table, bno);
+    	boardService.hitPlus(board_table, bno);
+    	BoardConfigVO boardconfig = boardService.boardConfigView(board_table); //게시판 기본정보 얻기
         
-        boardMapper.hitPlus(map);
         
         //모델겍체 생성
     	ModelAndView modelandview = new ModelAndView("/board/boardView");
@@ -129,19 +89,10 @@ public class BoardController {
     @RequestMapping(value="/post/{bno}", method=RequestMethod.GET)
     public ModelAndView updateForm(@PathVariable("bno") int bno,@PathVariable("board_table") String board_table) throws Exception{
     	
-    	//게시판 기본정보 얻기
-    	BoardConfigVO boardconfig = boardConfigMapper.boardConfigView(board_table.toLowerCase());
-    	//찾는 게시판이 없을경우
-    	if(boardconfig == null){
-    		return new ModelAndView("/scripts/alert");
-    	}
+    	BoardConfigVO boardconfig = boardService.boardConfigView(board_table); //게시판 기본정보 얻기
+    	BoardVO board = boardService.boardView(board_table, bno); //글보기
     	
-    	//조회전에 여러파라미터를 해시맵을 통하여 전송
-    	HashMap<String, Object> map = new HashMap<String, Object>();
-    	map.put("boardconfig", boardconfig); //게시판설정 삽입
-    	map.put("bno", bno); //게시판조회번호 삽입
-            
-        BoardVO board = boardMapper.boardView(map);
+    	
         
         //모델겍체 생성
     	ModelAndView modelandview = new ModelAndView("/board/boardUpdate");
@@ -155,21 +106,7 @@ public class BoardController {
     @RequestMapping(value="/post/{bno}", method=RequestMethod.PATCH)
     public String update(@ModelAttribute("BoardVO")BoardVO board,@PathVariable("bno") int bno,@PathVariable("board_table") String board_table) throws Exception{
             
-    	//게시판 기본정보 얻기
-    	BoardConfigVO boardconfig = boardConfigMapper.boardConfigView(board_table.toLowerCase());
-    	//찾는 게시판이 없을경우
-    	if(boardconfig == null){
-    		return "잘못된 경로입니다.";
-    	}
-    	
-    	//저장하기전에 여러파라미터를 해시맵을 통하여 전송
-    	HashMap<String, Object> map = new HashMap<String, Object>();
-    	map.put("boardconfig", boardconfig); //게시판설정 삽입
-    	map.put("board", board); //게시판내용 삽입
-    	map.put("bno", bno); //수정할 번호 삽입
-    	
-    	//게시판 내용 업데이트
-    	boardMapper.boardUpdate(map);
+    	boardService.boardUpdate(board_table, bno, board); //게시판 내용 업데이트
         
             
         return "redirect:/board/"+board_table+"/"+bno;
@@ -179,19 +116,7 @@ public class BoardController {
     @RequestMapping(value="/post/{bno}", method=RequestMethod.DELETE)
     public String delete(@PathVariable("bno") int bno,@PathVariable("board_table") String board_table) throws Exception{
     	
-    	//게시판 기본정보 얻기
-    	BoardConfigVO boardconfig = boardConfigMapper.boardConfigView(board_table.toLowerCase());
-    	//찾는 게시판이 없을경우
-    	if(boardconfig == null){
-    		return "잘못된 경로입니다.";
-    	}
-    	
-    	//지우기전에 여러파라미터를 해시맵을 통하여 전송
-    	HashMap<String, Object> map = new HashMap<String, Object>();
-    	map.put("boardconfig", boardconfig); //게시판설정 삽입
-    	map.put("bno", bno); //삭제할 번호 삽입
-    	
-        boardMapper.boardDelete(map);
+    	boardService.boardDelete(board_table, bno); //게시판 삭제
             
         return "redirect:/board/"+board_table;
     }

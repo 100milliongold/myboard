@@ -18,7 +18,7 @@ import com.myapp.member.mapper.MemberMapper;
  
 @Service
 @MapperScan(value = {"com.myapp.member.mapper"})
-public class UserServiceImpl implements UserService {
+public class MemberServiceImpl implements MemberService {
      
      @Autowired MemberMapper memberMapper;
      private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();

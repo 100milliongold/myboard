@@ -7,12 +7,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-import com.myapp.member.controller.UserService;
+import com.myapp.member.controller.MemberService;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter
 {
-	@Autowired UserService userService;
+	@Autowired MemberService memberService;
 	
 	@Override
 	public void configure(WebSecurity web) throws Exception
@@ -32,8 +32,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 	
 	@Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-         auth.userDetailsService(userService)
-         .passwordEncoder(userService.passwordEncoder())
+         auth.userDetailsService(memberService)
+         .passwordEncoder(memberService.passwordEncoder())
          ;
     }
 }

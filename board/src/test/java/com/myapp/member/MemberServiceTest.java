@@ -21,7 +21,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.myapp.MyappApplication;
-import com.myapp.member.controller.UserService;
+import com.myapp.member.controller.MemberService;
 import com.myapp.member.domain.MemberVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -29,7 +29,7 @@ import com.myapp.member.domain.MemberVO;
 @WebAppConfiguration
 
 public class MemberServiceTest {
-	@Autowired private UserService userService;
+	@Autowired private MemberService userService;
 	
 	private MemberVO user1;
 	
