@@ -41,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
          http
 			.logout()
 			// /logout 을 호출할 경우 로그아웃
-			.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
+			.logoutUrl("/member/logout")
 			// 로그아웃이 성공했을 경우 이동할 페이지
 			.logoutSuccessUrl("/");
     }
