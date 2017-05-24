@@ -7,9 +7,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class MemberVO implements UserDetails{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private String username;
 	private String password;
 	private String name;
+	// 1 : 성공  / 0 : 실패
 	private String is_account_non_expired;
 	private String is_account_non_locked;
 	private String id_credentials_non_expired;
@@ -36,6 +42,7 @@ public class MemberVO implements UserDetails{
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 	public String getIs_account_non_expired() {
 		return is_account_non_expired;
 	}
@@ -61,6 +68,7 @@ public class MemberVO implements UserDetails{
 		this.id_enabled = id_enabled;
 	}
 	
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
@@ -69,7 +77,7 @@ public class MemberVO implements UserDetails{
 	@Override
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub
-		//return (is_account_non_expired=="1")?true:false;
+//		return (is_account_non_expired=="1")?true:false;
 		return true;
 	}
 	@Override
@@ -95,4 +103,16 @@ public class MemberVO implements UserDetails{
 		this.authorities = authorities;
 	}
 	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return 
+		 "username: "+this.username
+		+"\n password: "+this.password
+		+"\n name: "+this.name
+		+"\n is_account_non_expired : "+this.is_account_non_expired
+		+"\n is_account_non_locked: "+this.is_account_non_locked
+		+"\n is_account_non_locked: "+this.is_account_non_locked
+		+"\n is_account_non_locked: "+this.is_account_non_locked;
+	}
 }

@@ -1,4 +1,4 @@
-package com.myapp.board.controller;
+package com.myapp.board.service;
 
 import java.util.List;
 

@@ -21,8 +21,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.myapp.MyappApplication;
-import com.myapp.member.controller.MemberService;
 import com.myapp.member.domain.MemberVO;
+import com.myapp.member.service.MemberService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = MyappApplication.class)
@@ -38,9 +38,9 @@ public class MemberServiceTest {
          user1 = new MemberVO();
          user1.setUsername("user1");
          user1.setPassword("pass1");
+         user1.setName("USER1");
          user1.setIs_account_non_expired("1");
          user1.setIs_account_non_locked("1");
-         user1.setName("USER1");
          user1.setId_credentials_non_expired("1");
          user1.setId_enabled("1");
          user1.setAuthorities(AuthorityUtils.createAuthorityList("USER"));
@@ -61,6 +61,7 @@ public class MemberServiceTest {
          Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>) user.getAuthorities();
          while (it.hasNext()) {
               GrantedAuthority authority = it.next();
+              //System.out.println(authority.getAuthority());
               assertThat(authorities, hasItem(new SimpleGrantedAuthority(authority.getAuthority())));
          }
     }

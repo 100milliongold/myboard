@@ -13,8 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.myapp.board.domain.BoardConfigVO;
 import com.myapp.board.domain.BoardVO;
-import com.myapp.board.mapper.BoardConfigMapper;
-import com.myapp.board.mapper.BoardMapper;
+import com.myapp.board.service.BoardService;
  
 @Controller
 @RequestMapping("/board/{board_table}")

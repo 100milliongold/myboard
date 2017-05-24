@@ -16,7 +16,7 @@ public interface MemberMapper {
     public MemberVO readUser(String username);
     
     //회원권한
-    public List<GrantedAuthority> readAuthority(String username);
+    public List<String> readAuthority(String username);
 
 	public void createUser(MemberVO user);
 

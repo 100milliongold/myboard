@@ -13,6 +13,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
  
 @SpringBootApplication
+@MapperScan(value = {"com.myapp.member.mapper"})
 public class MyappApplication {
  
     public static void main(String[] args) {        

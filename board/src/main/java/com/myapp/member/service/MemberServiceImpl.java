@@ -1,10 +1,13 @@
-package com.myapp.member.controller;
+package com.myapp.member.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -25,22 +28,43 @@ public class MemberServiceImpl implements MemberService {
      
      @Override
      public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    	  MemberVO member = memberMapper.readUser(username);
+    	  //System.out.println(username);
+    	  MemberVO member = readUser(username);
+    	  //System.out.println(member.toString());
     	  member.setAuthorities(getAuthorities(username));
           
           return member;
      }
      
-     public Collection<GrantedAuthority> getAuthorities(String username) {
-    	  Collection<GrantedAuthority> authorities = memberMapper.readAuthority(username);
+     @Override
+     public List<GrantedAuthority> getAuthorities(String username) {
+    	 List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+    	 List<String> rolelist = memberMapper.readAuthority(username);
+    	 for (String string : rolelist) {
+    		 authorities.add(new SimpleGrantedAuthority(string));
+    	 }
+    	 
+    	 //List<GrantedAuthority> authorities = memberMapper.readAuthority(username);
+    	  //System.out.println(username);
+    	  
           return authorities;
      }
 
 	@Override
 	public MemberVO readUser(String username) {
 		// TODO Auto-generated method stub
+//		MemberVO member = memberMapper.readUser(username);
+//		member.setAuthorities(memberMapper.readAuthority(username));
+//		return member;
+		// TODO Auto-generated method stub
 		MemberVO member = memberMapper.readUser(username);
-		member.setAuthorities(memberMapper.readAuthority(username));
+		List<String> rolelist = memberMapper.readAuthority(username);
+		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+		for (String string : rolelist) {
+			authorities.add(new SimpleGrantedAuthority(string));
+		}
+		//member.setAuthorities(memberMapper.readAuthority(username));
+		member.setAuthorities(authorities);
 		return member;
 	}
 

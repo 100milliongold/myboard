@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
           SELECT * FROM MEMBER WHERE username = #{username}
      </select>
      
-     <select id="readAuthority" parameterType="String" resultType="org.springframework.security.core.authority.SimpleGrantedAuthority">
+     <select id="readAuthority" parameterType="String" resultType="String">
           SELECT AUTHORITY_NAME FROM AUTHORITY WHERE username = #{username}
      </select>
      
@@ -29,7 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
           INSERT INTO AUTHORITY (username, authority_name)
                     VALUES
                          <foreach item="authority" index="index" collection="authorities" separator=",">
-                              (#{username}, #{authority})
+                              (#{username}, #{authority.role})
                          </foreach>
      </insert>
      
