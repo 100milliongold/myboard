@@ -18,4 +18,5 @@ public interface BoardConfigMapper {
 	
 	//게시판 설정보기
 	public BoardConfigVO boardConfigView(String vo)throws Exception;
+	
 }

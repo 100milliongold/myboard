@@ -3,6 +3,7 @@ package com.myapp.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -29,8 +30,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
          http
               .csrf().disable()
               .authorizeRequests()
-                   .antMatchers("/member/login","/member/join","/**").permitAll()
-       			   .antMatchers("/member/**").hasAnyRole("USER","ADMIN");
+                   .antMatchers(HttpMethod.GET,"/member/info/**","/admin/**").authenticated()
+                   .antMatchers(HttpMethod.GET,"/admin/**").hasAuthority("ADMIN")
+                   .anyRequest().permitAll()
+              ;
          http
               .formLogin()
               .loginProcessingUrl("/member/loginProcessing")
@@ -41,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
          http
 			.logout()
 			// /logout 을 호출할 경우 로그아웃
-			.logoutUrl("/member/logout")
+			.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
 			// 로그아웃이 성공했을 경우 이동할 페이지
 			.logoutSuccessUrl("/");
     }
@@ -50,6 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
          auth.userDetailsService(memberService)
          .passwordEncoder(memberService.passwordEncoder())
+         
          ;
     }
 	

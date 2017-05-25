@@ -58,9 +58,38 @@ public class BoardServiceImpl implements BoardService{
 		//게시판리스트를 불려오기전에 해시맵을 통하여 여러개의 정보추출
     	HashMap<String, Object> map = new HashMap<String, Object>();
     	map.put("boardconfig", boardconfig); //게시판설정 삽입
-    	List<BoardVO> list = boardMapper.boardList(map);
+    	
+    	
+    	List<BoardVO> list = boardMapper.boardList(map); //게시판 쿼리문
     	
     	return list;
+	}
+	
+	//게시판 리스트 -페이지 적용
+	@Override
+	public List<BoardVO> boardList(String board_table, int page, int rows) throws Exception {
+		// TODO Auto-generated method stub
+		
+		//게시판 기본정보 얻기
+    	BoardConfigVO boardconfig = boardConfigMapper.boardConfigView(board_table.toLowerCase());
+    	//찾는 게시판이 없을경우
+    	if(boardconfig == null){
+    		return null;
+    	}
+
+    	if (page == 0) { page = 1; } // 페이지가 없으면 첫 페이지 (1 페이지)
+    	int from_record = (page - 1) * rows; // 시작 열을 구함
+    	int end_record = ( page * rows )-1; // 마직막 열을 구함
+    	
+    	
+    	//게시판리스트를 불려오기전에 해시맵을 통하여 여러개의 정보추출
+    	HashMap<String, Object> map = new HashMap<String, Object>();
+    	map.put("boardconfig", boardconfig); //게시판설정 삽입
+    	map.put("from_record", from_record); //시작번호 삽입
+    	map.put("end_record", end_record); //마직막 삽입
+    	
+    	List<BoardVO> list = boardMapper.boardList2(map); //게시판 쿼리문
+		return list;
 	}
 
 	//게시판보기
@@ -161,6 +190,33 @@ public class BoardServiceImpl implements BoardService{
     	
     	
 		return boardconfig;
+	}
+
+	//게시판 글수
+	@Override
+	public int boardCount(String board_table) throws Exception {
+		// TODO Auto-generated method stub
+		//게시판 기본정보 얻기
+    	BoardConfigVO boardconfig = boardConfigMapper.boardConfigView(board_table.toLowerCase());
+    	//찾는 게시판이 없을경우
+    	if(boardconfig == null){
+    		return 0;
+    	}
+    	
+    	//계산전에 여러파라미터를 해시맵을 통하여 전송
+    	HashMap<String, Object> map = new HashMap<String, Object>();
+    	map.put("boardconfig", boardconfig); //게시판설정 삽입
+    	
+		return boardMapper.boardCount(map);
+	}
+
+	//게시판 테이블 목록
+	@Override
+	public List<BoardConfigVO> boardConfigList() throws Exception {
+		// TODO Auto-generated method stub
+		
+		List<BoardConfigVO> list = boardConfigMapper.boardConfigList(); //게시판 쿼리문
+		return list;
 	}
 
 }

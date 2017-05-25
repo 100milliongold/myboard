@@ -14,6 +14,9 @@ public interface BoardService {
     //글목록
     public List<BoardVO> boardList(String board_table)throws Exception;
     
+    //글목록 - 페이지
+    public List<BoardVO> boardList(String board_table, int page, int row)throws Exception;
+    
     //글보기
     public BoardVO boardView(String board_table, int bno)throws Exception;
     
@@ -28,5 +31,10 @@ public interface BoardService {
     
     //게시판 설정보기
   	public BoardConfigVO boardConfigView(String board_table)throws Exception;
-    
+  	
+  	//게시판 글수
+    public int boardCount(String board_table) throws Exception;
+
+    //게시판테이블 목록
+	public List<BoardConfigVO> boardConfigList() throws Exception;
 }

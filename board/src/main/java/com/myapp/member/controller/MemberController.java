@@ -78,12 +78,11 @@ public class MemberController {
     }
     
     //마이페이지
-    @RequestMapping(value="/{username}",method=RequestMethod.GET)
+    @RequestMapping(value="/info/{username}",method=RequestMethod.GET)
     public ModelAndView myPage(@PathVariable("username")String username) throws Exception{
     	
-    	//회원정보 불러오기
-    	MemberVO member = memberService.readUser(username);
     	
+    	MemberVO member = memberService.readUser(username);
     	
     	//모델겍체 생성
     	ModelAndView modelandview = new ModelAndView("/member/MemberInfo");

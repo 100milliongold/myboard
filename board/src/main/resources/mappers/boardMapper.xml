@@ -15,6 +15,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="boardList" parameterType="hashmap" resultType="com.myapp.board.domain.BoardVO">
         select * from board_${boardconfig.board_table}
     </select>
+    
+    <!-- 게시판 목록 -->
+    <select id="boardList2" parameterType="hashmap" resultType="com.myapp.board.domain.BoardVO">
+        SELECT
+    		AAA.*
+		FROM(
+		    SELECT
+		        COUNT(*) OVER() AS TOTAL_COUNT,
+		        AA.*
+		    FROM(
+		        SELECT
+		            ROW_NUMBER() OVER (ORDER BY BNO DESC) RNUM,
+		            BNO,
+		            SUBJECT,
+		            HIT,
+		            REG_DATE
+		        FROM
+		            board_${boardconfig.board_table}
+		     
+		    ) AA
+		) AAA
+		WHERE
+		    AAA.RNUM BETWEEN #{from_record} AND #{end_record}
+    </select>
  	
  	<!-- 게시판 보기 -->
     <select id="boardView" parameterType="hashmap" resultType="com.myapp.board.domain.BoardVO">
@@ -26,11 +50,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         update board_${boardconfig.board_table} set hit = hit+1 where bno = #{bno}
     </update>
     
+    <!-- 글 수정 -->
     <update id="boardUpdate" parameterType="hashmap">
         update board_${boardconfig.board_table} set subject = #{board.subject}, content = #{board.content} where bno = #{bno}
     </update>
     
+    <!-- 글 삭제 -->
     <delete id="boardDelete" parameterType="hashmap">
         delete from board_${boardconfig.board_table} where bno = #{bno}
     </delete>
+    
+    <!-- 게시판 글수 -->
+    <select id="boardCount" parameterType="hashmap" resultType="int">
+        SELECT COUNT(*) AS CNT FROM board_${boardconfig.board_table}
+    </select>
 </mapper>
