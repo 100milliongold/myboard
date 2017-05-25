@@ -5,26 +5,10 @@
 
 <jsp:include page="./header.jsp"></jsp:include>
 
-<div class="container-fluid" id="main">
-    <div class="row row-offcanvas row-offcanvas-left">
-        <div class="col-md-3 col-lg-2 sidebar-offcanvas" id="sidebar" role="navigation">
-        	<!-- 메뉴 -->
-            <jsp:include page="./menu.jsp"></jsp:include>
-            <!-- //메뉴 -->
-        </div>
-        <!--/col-->
 
-        <div class="col-md-9 col-lg-10 main">
-
-           
-            <p class="hidden-md-up">
-                <button type="button" class="btn btn-primary-outline btn-sm" data-toggle="offcanvas"><i class="fa fa-chevron-left"></i> Menu</button>
-            </p>
-
-            <h1 class="display-2 hidden-xs-down">
+			<h1 class="display-2 hidden-xs-down">
             Bootstrap 4 Dashboard
             </h1>
-        </div>
-    </div>
-</div>
+            <p class="lead hidden-xs-down">(with off-canvas sidebar, based on BS v4 alpha 6)</p>
+        
 <jsp:include page="./footer.jsp"></jsp:include>
