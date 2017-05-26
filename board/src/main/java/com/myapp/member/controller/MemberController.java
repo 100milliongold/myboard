@@ -65,7 +65,25 @@ public class MemberController {
     @RequestMapping(value="/login",method=RequestMethod.GET)
     public ModelAndView memberLoginForm(HttpServletRequest request) throws Exception{
     	
-    	String referrer = request.getHeader("Referer");
+    	String referrer = request.getHeader("referer");
+//    	System.out.println("Referer :"+referrer);
+        request.getSession().setAttribute("prevPage", referrer);
+    	
+    	
+    	//모델겍체 생성
+    	ModelAndView modelandview = new ModelAndView("/member/MemberLogin");
+    	
+    	
+    	//뷰파일 불려오기
+        return modelandview;
+    }
+    
+    //로그인
+    @RequestMapping(value="/adminlogin",method=RequestMethod.GET)
+    public ModelAndView adminLoginForm(HttpServletRequest request) throws Exception{
+    	
+    	String referrer = request.getHeader("referer");
+//    	System.out.println("Referer :"+referrer);
         request.getSession().setAttribute("prevPage", referrer);
     	
     	

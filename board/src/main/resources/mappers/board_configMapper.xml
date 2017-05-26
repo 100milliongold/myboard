@@ -12,4 +12,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="boardConfigView" parameterType="String" resultType="com.myapp.board.domain.BoardConfigVO">
         select * from BOARDCONFIG where BOARD_TABLE = #{BOARD_TABLE}
     </select>
+    
+    <insert id="boardCofigInsert" parameterType="hashmap">
+    	<!-- 게시판 설정 입력 -->
+        INSERT into BOARDCONFIG values (#{boardconfig.board_table},#{boardconfig.board_name})
+    </insert>
+    
+    <insert id="boardCreate" parameterType="hashmap">
+    	<!-- 게시판 테이블 생성 -->
+    	CREATE TABLE board_${boardconfig.board_table}(
+       		BNO 		NUMBER NOT NULL, 
+			SUBJECT 	VARCHAR2(50) NOT NULL, 
+			CONTENT 	VARCHAR2(1024), 
+			WRITER 		VARCHAR2(50) NOT NULL, 
+			REG_DATE 	DATE NOT NULL, 
+			HIT 		NUMBER,
+			CONSTRAINT PK_USERS PRIMARY KEY(BNO)
+       )
+    </insert>
+    
+    <insert id="boardCreateSequence" parameterType="hashmap">
+    	<!-- 게시판 시퀀스 생성 -->
+    	create sequence board_${boardconfig.board_table}_sequence start with 1 increment BY 1 maxvalue 10000
+    </insert>
+    
 </mapper>

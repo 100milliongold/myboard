@@ -219,4 +219,21 @@ public class BoardServiceImpl implements BoardService{
 		return list;
 	}
 
+	//게시판 테이블 생성
+	@Override
+	public void boardConfigInsert(BoardConfigVO boardconfig) throws Exception {
+		// TODO Auto-generated method stub
+		
+		
+    	
+    	
+    	//저장하기전에 여러파라미터를 해시맵을 통하여 전송
+    	HashMap<String, Object> map = new HashMap<String, Object>();
+    	map.put("boardconfig", boardconfig); //게시판설정 삽입
+    	
+    	boardConfigMapper.boardCofigInsert(map); //게시판 설정 생성
+    	boardConfigMapper.boardCreate(map);
+    	boardConfigMapper.boardCreateSequence(map);
+	}
+
 }

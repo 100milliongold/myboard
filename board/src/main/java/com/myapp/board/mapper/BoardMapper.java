@@ -4,7 +4,6 @@ package com.myapp.board.mapper;
 import java.util.HashMap;
 import java.util.List;
 
-import com.myapp.board.domain.BoardConfigVO;
 import com.myapp.board.domain.BoardVO;
 
 //게시판 데이터

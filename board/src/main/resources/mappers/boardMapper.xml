@@ -8,7 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <insert id="boardInsert" parameterType="com.myapp.board.domain.BoardVO">
         insert into board_${boardconfig.board_table}
             values
-        (BOARD_SEQUENCE.NEXTVAL,#{board.subject},#{board.content},#{board.writer},SYSDATE,0)
+        (board_${boardconfig.board_table}_sequence.nextval,#{board.subject},#{board.content},#{board.writer},SYSDATE,0)
     </insert>
     
     <!-- 게시판 목록 -->

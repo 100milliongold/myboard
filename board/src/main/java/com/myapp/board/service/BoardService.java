@@ -37,4 +37,7 @@ public interface BoardService {
 
     //게시판테이블 목록
 	public List<BoardConfigVO> boardConfigList() throws Exception;
+
+	//게시판테이블 생성
+	public void boardConfigInsert(BoardConfigVO boardconfig) throws Exception;
 }
