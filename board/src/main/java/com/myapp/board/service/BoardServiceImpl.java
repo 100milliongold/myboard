@@ -294,4 +294,24 @@ public class BoardServiceImpl implements BoardService{
 		return list;
 	}
 
+	//댓글 입력
+	@Override
+	public void replyInsert(String board_table, int bno, ReplyVO reply) throws Exception {
+		// TODO Auto-generated method stub
+		//게시판 기본정보 얻기
+    	BoardConfigVO boardconfig = boardConfigMapper.boardConfigView(board_table.toLowerCase());
+    	//찾는 게시판이 없을경우
+    	if(boardconfig == null){
+    		return ;
+    	}
+    	
+    	HashMap<String, Object> map = new HashMap<String, Object>();
+    	map.put("boardconfig", boardconfig); //게시판설정 삽입
+    	map.put("bno", bno); //게시판조회번호 삽입
+    	map.put("reply", reply); //리플 삽입
+    	
+    	replyMapper.replyInsert(map);
+		
+	}
+
 }

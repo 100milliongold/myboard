@@ -49,5 +49,8 @@ public interface BoardService {
 	public void boardConfigDelete(String board_table) throws Exception;
 
 	//댓글 리스트
-	public List<ReplyVO> replyList(String board_table, int bno)  throws Exception;
+	public List<ReplyVO> replyList(String board_table, int bno) throws Exception;
+
+	//댓글 입력
+	public void replyInsert(String board_table, int bno, ReplyVO reply) throws Exception;
 }

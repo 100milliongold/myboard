@@ -5,7 +5,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <jsp:include page="../header.jsp"></jsp:include>
-<h3>게시글 상세</h3>
+<h3>${boardconfig.board_name} 게시글 상세</h3>
 <div style="padding: 30px;">
 	<div class="form-group">
 		<label>제목</label> <span>${board.subject}</span>
@@ -66,7 +66,7 @@
 		<div class="panel-title">댓글 입력</div>
 	</div>
 	<div class="panel-body">
-		<form class="form-horizontal" role="form" method="POST" action="/board//${board.bno}/reply">
+		<form class="form-horizontal" role="form" method="POST" action="/board/${boardconfig.board_table}/${board.bno}/reply">
 			<div class="form-group">
 				<label for="board_table" class="col-sm-2 control-label">작성자</label>
 				<div class="col-sm-10">

@@ -161,4 +161,13 @@ public class BoardController {
             
         return "redirect:/board/"+board_table;
     }
+    
+    //댓글 입력(POST)
+    @RequestMapping(value="/{board_table}/{bno}/reply", method=RequestMethod.POST)
+    public String reply(@PathVariable("bno") int bno,@PathVariable("board_table") String board_table,@ModelAttribute("ReplyVO")ReplyVO reply) throws Exception{
+    	
+    	boardService.replyInsert(board_table,bno,reply);
+            
+        return "redirect:/board/"+board_table+"/"+bno;
+    }
 }

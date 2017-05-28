@@ -10,4 +10,6 @@ public interface ReplyMapper {
     //public void repleInsert(HashMap<String, Object> map)throws Exception;
 
 	public List<ReplyVO> replyList(HashMap<String, Object> map)throws Exception;
+
+	public void replyInsert(HashMap<String, Object> map) throws Exception;
 }

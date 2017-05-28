@@ -27,7 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			WRITER 		VARCHAR2(50) NOT NULL, 
 			REG_DATE 	DATE NOT NULL, 
 			HIT 		NUMBER,
-			CONSTRAINT PK_USERS PRIMARY KEY(BNO)
+			CONSTRAINT  board_${boardconfig.board_table}_id_pk PRIMARY KEY(BNO)
        )
     </insert>
     

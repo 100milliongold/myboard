@@ -10,4 +10,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from  reply_${boardconfig.board_table} where bno = #{bno} and PARENT_ID IS NULL
 	</select>
 	
+	<insert id="replyInsert" parameterType="hashmap">
+        insert into reply_${boardconfig.board_table} (CNO,BNO,SUBJECT,CONTENT,REG_DATE)
+            values
+        (reply_${boardconfig.board_table}_sequence.nextval,#{bno},#{reply.subject},#{reply.content},SYSDATE)
+    </insert>
+	
 </mapper>
