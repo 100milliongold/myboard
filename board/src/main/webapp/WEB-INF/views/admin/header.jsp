@@ -7,6 +7,10 @@
   <head>
     <title>관리자 페이지</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="/resources/admin/js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
     <!-- Bootstrap -->
     <link href="/resources/admin/css/bootstrap.min.css" rel="stylesheet">
     <!-- styles -->

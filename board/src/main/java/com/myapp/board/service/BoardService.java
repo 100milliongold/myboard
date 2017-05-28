@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.myapp.board.domain.BoardConfigVO;
 import com.myapp.board.domain.BoardVO;
+import com.myapp.board.domain.ReplyVO;
 
 //서비스
 public interface BoardService {
@@ -40,4 +41,13 @@ public interface BoardService {
 
 	//게시판테이블 생성
 	public void boardConfigInsert(BoardConfigVO boardconfig) throws Exception;
+
+	//게시판 수정
+	public void boardConfigUpdate(String board_table, BoardConfigVO boardconfig) throws Exception;
+
+	//게시판 삭제
+	public void boardConfigDelete(String board_table) throws Exception;
+
+	//댓글 리스트
+	public List<ReplyVO> replyList(String board_table, int bno)  throws Exception;
 }

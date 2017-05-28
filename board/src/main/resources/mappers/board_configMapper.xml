@@ -36,4 +36,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	create sequence board_${boardconfig.board_table}_sequence start with 1 increment BY 1 maxvalue 10000
     </insert>
     
+    <update id="boardConfigUpdate" parameterType="hashmap">
+    	update BOARDCONFIG set BOARD_NAME = #{boardconfig.board_name} where BOARD_TABLE = #{board_table}
+    </update>
+    
+    <delete id="boardConfigDelete" parameterType="hashmap">
+    	delete from BOARDCONFIG where BOARD_TABLE = #{board_table}
+    </delete>
+    
+    <delete id="boardDrop" parameterType="hashmap">
+    	DROP TABLE board_${board_table} 
+    </delete>
+    
+    <delete id="boardDeleteSequence" parameterType="hashmap">
+    	drop sequence board_${board_table}_sequence
+    </delete>
+    
 </mapper>

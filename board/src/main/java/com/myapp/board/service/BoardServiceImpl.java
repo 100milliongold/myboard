@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.myapp.board.domain.BoardConfigVO;
 import com.myapp.board.domain.BoardVO;
+import com.myapp.board.domain.ReplyVO;
 import com.myapp.board.mapper.BoardConfigMapper;
 import com.myapp.board.mapper.BoardMapper;
+import com.myapp.board.mapper.ReplyMapper;
 
 //브릿지 패턴
 @Service
@@ -21,6 +23,8 @@ public class BoardServiceImpl implements BoardService{
     private BoardMapper boardMapper;
     @Autowired
     private BoardConfigMapper boardConfigMapper;
+    @Autowired
+    private ReplyMapper replyMapper;
 
     //게시판 작성
 	@Override
@@ -207,7 +211,13 @@ public class BoardServiceImpl implements BoardService{
     	HashMap<String, Object> map = new HashMap<String, Object>();
     	map.put("boardconfig", boardconfig); //게시판설정 삽입
     	
-		return boardMapper.boardCount(map);
+    	try {
+    		return boardMapper.boardCount(map);
+		} catch (Exception e) {
+			// TODO: handle exception
+			return 0;
+		}
+    	
 	}
 
 	//게시판 테이블 목록
@@ -224,9 +234,6 @@ public class BoardServiceImpl implements BoardService{
 	public void boardConfigInsert(BoardConfigVO boardconfig) throws Exception {
 		// TODO Auto-generated method stub
 		
-		
-    	
-    	
     	//저장하기전에 여러파라미터를 해시맵을 통하여 전송
     	HashMap<String, Object> map = new HashMap<String, Object>();
     	map.put("boardconfig", boardconfig); //게시판설정 삽입
@@ -234,6 +241,57 @@ public class BoardServiceImpl implements BoardService{
     	boardConfigMapper.boardCofigInsert(map); //게시판 설정 생성
     	boardConfigMapper.boardCreate(map);
     	boardConfigMapper.boardCreateSequence(map);
+	}
+
+	//게시판테이블 수정
+	@Override
+	public void boardConfigUpdate(String board_table,BoardConfigVO boardconfig) throws Exception {
+		// TODO Auto-generated method stub
+		
+		//저장하기전에 여러파라미터를 해시맵을 통하여 전송
+    	HashMap<String, Object> map = new HashMap<String, Object>();
+    	map.put("board_table", board_table); //게시판명 삽입
+    	map.put("boardconfig", boardconfig); //게시판설정 삽입
+    	
+    	
+    	boardConfigMapper.boardConfigUpdate(map);
+	}
+
+	//게시판 삭제
+	@Override
+	public void boardConfigDelete(String board_table) throws Exception {
+		// TODO Auto-generated method stub
+		
+		//삭제하기 전에 여러파라미터를 해시맵을 통하여 전송
+		HashMap<String, Object> map = new HashMap<String, Object>();
+    	map.put("board_table", board_table); //게시판명 삽입
+    	
+    	boardConfigMapper.boardConfigDelete(map);
+    	boardConfigMapper.boardDrop(map);
+    	boardConfigMapper.boardDeleteSequence(map);
+	}
+
+	//댓글 리스트
+	@Override
+	public List<ReplyVO> replyList(String board_table, int bno) throws Exception {
+		// TODO Auto-generated method stub
+		
+		//게시판 기본정보 얻기
+    	BoardConfigVO boardconfig = boardConfigMapper.boardConfigView(board_table.toLowerCase());
+    	//찾는 게시판이 없을경우
+    	if(boardconfig == null){
+    		return null;
+    	}
+    	
+    	HashMap<String, Object> map = new HashMap<String, Object>();
+    	map.put("boardconfig", boardconfig); //게시판설정 삽입
+    	map.put("bno", bno); //게시판조회번호 삽입
+    	
+    	
+    	//댓글 추출
+    	List<ReplyVO> list = replyMapper.replyList(map);
+		
+		return list;
 	}
 
 }

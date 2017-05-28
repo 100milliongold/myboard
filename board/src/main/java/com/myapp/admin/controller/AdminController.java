@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -55,7 +57,7 @@ public class AdminController {
     	boardService.boardConfigInsert(boardconfig);
     	
     	
-        //뷰파일 불려오기
+        //리스트로 이동
         return "redirect:/admin/board/";
     }
     
@@ -90,5 +92,36 @@ public class AdminController {
         return modelandview;
     }
     
+    //게시판 관리 - 게시판 수정
+    @RequestMapping(value="/board/{board_table}", method=RequestMethod.PATCH)
+    public String board_modify(@PathVariable("board_table") String board_table,@ModelAttribute("BoardConfigVO")BoardConfigVO boardconfig) throws Exception{
+    	
+    	
+    	boardService.boardConfigUpdate(board_table,boardconfig);
+    	
+    	
+        //뷰페이지로 이동
+        return "redirect:/admin/board/"+board_table;
+    }
     
+    //게시판 관리 - 게시판 삭제
+    //어짜피 갠플젝이니 핫한 하이브리드 방식으로 ㅋ
+    @RequestMapping(value="/board/{board_table}", method=RequestMethod.DELETE)
+    public ResponseEntity<BoardConfigVO> board_delete(@PathVariable("board_table") String board_table) throws Exception{
+    	
+    	//게시판 삭제
+    	try {
+    		boardService.boardConfigDelete(board_table);
+		} catch (Exception e) {
+			// TODO: handle exception
+			return new ResponseEntity<BoardConfigVO>(HttpStatus.CONFLICT);
+		}
+    	
+		
+    	
+    	return new ResponseEntity<BoardConfigVO>(HttpStatus.NO_CONTENT);
+    	
+    	//리스트로 이동
+        //return "redirect:/admin/board/";
+    }
 }

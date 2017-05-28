@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.myapp.board.domain.BoardConfigVO;
 import com.myapp.board.domain.BoardVO;
 import com.myapp.board.domain.Paging;
+import com.myapp.board.domain.ReplyVO;
 import com.myapp.board.service.BoardService;
  
 @Controller
@@ -39,8 +40,9 @@ public class BoardController {
     @RequestMapping(value="/{board_table}",method=RequestMethod.GET)
     public ModelAndView list(@ModelAttribute("page")String pagenum,@PathVariable("board_table") String board_table) throws Exception{
     	
-    	int page;
-    	int row = 10;
+    	int page; //현재 페이지
+    	int row = 10; // 출력개수
+    	int nevSize = 5; // 페이징 갯수
     	try {
     		page = Integer.parseInt(pagenum);
     		
@@ -67,6 +69,7 @@ public class BoardController {
         	//전체 게시물수 계산
         	paging.setPageNo(page);
             paging.setPageSize(row);
+            paging.setNevSize(nevSize);
             paging.setTotalCount(boardService.boardCount(board_table));
             modelandview.addObject("paging",paging);
 		} catch (Exception e) {
@@ -112,11 +115,13 @@ public class BoardController {
     	boardService.hitPlus(board_table, bno);
     	BoardConfigVO boardconfig = boardService.boardConfigView(board_table); //게시판 기본정보 얻기
         
+    	List<ReplyVO> reply_list = boardService.replyList(board_table, bno);
         
         //모델겍체 생성
     	ModelAndView modelandview = new ModelAndView("/board/boardView");
-    	modelandview.addObject("boardconfig",boardconfig);
-    	modelandview.addObject("board",board);
+    	modelandview.addObject("boardconfig",boardconfig); //게시판 속성
+    	modelandview.addObject("board",board); // 게시판
+    	modelandview.addObject("reply_list",reply_list); // 리플
         
         return modelandview;
     }

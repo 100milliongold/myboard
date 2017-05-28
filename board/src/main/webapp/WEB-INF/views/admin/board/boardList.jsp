@@ -28,7 +28,11 @@
 				<c:forEach var="board" items="${list}">
 					<tbody>
 						<tr>
-							<td><a href="/admin/board/${board.board_table}">수정</a></td>
+							<td>
+								<a class="btn btn-warning btn-sm" href="/admin/board/${board.board_table}">
+									수정
+								</a>
+							</td>
 							<td>${board.board_table}</td>
 							<td><a href="/board/${board.board_table}">${board.board_name}</a></td>
 							<td></td>
