@@ -15,7 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <insert id="boardCofigInsert" parameterType="hashmap">
     	<!-- 게시판 설정 입력 -->
-        INSERT into BOARDCONFIG values (#{boardconfig.board_table},#{boardconfig.board_name})
+        INSERT into BOARDCONFIG values (UPPER(#{boardconfig.board_table}),#{boardconfig.board_name})
     </insert>
     
     <insert id="boardCreate" parameterType="hashmap">
@@ -50,6 +50,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <delete id="boardDeleteSequence" parameterType="hashmap">
     	drop sequence board_${board_table}_sequence
+    </delete>
+    
+    <insert id="replyCreate" parameterType="hashmap">
+    	<!-- 댓글 테이블 생성 -->
+    	CREATE TABLE reply_${boardconfig.board_table}(
+       		CNO 		NUMBER NOT NULL,
+       		BNO 		NUMBER NOT NULL, 
+       		USER_ID		VARCHAR2(50),
+       		PARENT_ID	NUMBER,
+			SUBJECT 	VARCHAR2(50), 
+			CONTENT 	VARCHAR2(1024), 
+			REG_DATE 	DATE, 
+			CONSTRAINT  reply_${boardconfig.board_table}_id_pk PRIMARY KEY(BNO)
+       )
+    </insert>
+    
+    <insert id="replyCreateSequence" parameterType="hashmap">
+    	<!-- 댓글 시퀀스 -->
+    	create sequence reply_${boardconfig.board_table}_sequence start with 1 increment BY 1 maxvalue 10000
+    </insert>
+    
+    <delete id="replyDrop" parameterType="hashmap">
+    	DROP TABLE reply_${board_table} 
+    </delete>
+    
+    <delete id="replyDeleteSequence" parameterType="hashmap">
+    	drop sequence reply_${board_table}_sequence
     </delete>
     
 </mapper>

@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -169,5 +171,22 @@ public class BoardController {
     	boardService.replyInsert(board_table,bno,reply);
             
         return "redirect:/board/"+board_table+"/"+bno;
+    }
+    //댓글 수정(PATCH)
+    @RequestMapping(value="/{board_table}/{bno}/reply", method=RequestMethod.PATCH)
+    public String replyupdate(@PathVariable("bno") int bno,@PathVariable("board_table") String board_table,@ModelAttribute("ReplyVO")ReplyVO reply) throws Exception{
+    	
+    	boardService.replyUpdate(board_table,bno,reply);
+    	
+    	return "redirect:/board/"+board_table+"/"+bno;
+    }
+    //댓글 수정(PATCH)
+    @RequestMapping(value="/{board_table}/{bno}/reply/{cno}", method=RequestMethod.DELETE)
+    public ResponseEntity<ReplyVO> replydelete(@PathVariable("bno") int bno,@PathVariable("board_table") String board_table,@PathVariable("cno") int cno) throws Exception{
+
+    	boardService.replyDelete(board_table,cno);
+    	
+    	
+    	return new ResponseEntity<ReplyVO>(HttpStatus.NO_CONTENT);
     }
 }

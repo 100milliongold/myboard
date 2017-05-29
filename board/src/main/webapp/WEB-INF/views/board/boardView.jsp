@@ -35,8 +35,103 @@
 	</div>
 </div>
 
+<table style="width: 100%;">
+	<tbody>
+		<c:forEach var="reply" items="${reply_list}">
+			<tr>
+				<td>
+					<div style="margin-left: ${(reply.depth-1)*50}px;">
+						<h4 class="media-heading" id="media-heading">
+							${reply.subject}</h4>
+						<p>${reply.content}</p>
+						<p>
+							<button type="button" onclick="reply_reply('${reply.cno}');">댓글</button>
+							<button type="button" onclick="reply_modify('${reply.cno}');">수정</button>
+							<button type="button" onclick="reply_delete('${reply.cno}');">삭제</button>
+						</p>
+					</div>
+					<!-- 댓글 수정창 -->
+					<div id="c_${reply.cno}" class="content-box-large"
+						style="display: none;" data-reply-id="${reply.cno}"
+						data-disply="hide">
+						<div class="panel-heading">
+							<div class="panel-title">댓글 수정</div>
+						</div>
+						<div class="panel-body">
+							<form:form commandName="BoardVO" class="form-horizontal"
+								role="form"
+								action="/board/${boardconfig.board_table}/${board.bno}/reply"
+								method="PATCH">
+								<input type="hidden" name="cno" value="${reply.cno}">
+								<div class="form-group">
+									<label for="board_table" class="col-sm-2 control-label">제목</label>
+									<div class="col-sm-10">
+										<input type="text" name="subject" class="form-control"
+											value="${reply.subject}" id="subject" placeholder="이름"
+											required="required">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="board_name" class="col-sm-2 control-label">댓글
+										내용</label>
+									<div class="col-sm-10">
+										<textarea rows="5" class="form-control" name="content"
+											id="content">${reply.content}</textarea>
+									</div>
+								</div>
 
-<div>
+								<div class="form-group">
+									<div class="col-sm-offset-2 col-sm-10">
+										<button type="submit" class="btn btn-primary">수정</button>
+									</div>
+								</div>
+							</form:form>
+						</div>
+					</div> <!-- 댓댓글 입력창 -->
+					<div id="cr_${reply.cno}" class="content-box-large"
+						style="display: none;" data-reply-id="${reply.cno}"
+						data-disply="hide">
+						<div class="panel-heading">
+							<div class="panel-title">댓글 입력</div>
+						</div>
+						<div class="panel-body">
+							<form:form commandName="BoardVO" class="form-horizontal"
+								role="form"
+								action="/board/${boardconfig.board_table}/${board.bno}/reply"
+								method="POST">
+								<input type="hidden" name="parent_id" value="${reply.cno}">
+								<div class="form-group">
+									<label for="board_table" class="col-sm-2 control-label">제목</label>
+									<div class="col-sm-10">
+										<input type="text" name="subject" class="form-control"
+											value="" id="subject" placeholder="이름" required="required">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="board_name" class="col-sm-2 control-label">댓글
+										내용</label>
+									<div class="col-sm-10">
+										<textarea rows="5" class="form-control" name="content"
+											id="content"></textarea>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="col-sm-offset-2 col-sm-10">
+										<button type="submit" class="btn btn-primary">입력</button>
+									</div>
+								</div>
+							</form:form>
+						</div>
+					</div>
+				</td>
+			</tr>
+		</c:forEach>
+	</tbody>
+</table>
+
+
+<%-- <div>
 	<ul class="media-list">
 		<c:forEach var="reply" items="${reply_list}">
 		<li class="media">
@@ -55,11 +150,18 @@
 				<p>
 					${reply.content}
 				</p>
+				<p>
+					<button type="button" onclick="reply_reply('${reply.cno}');">댓글</button>
+					<button type="button" onclick="reply_modify('${reply.cno}');">수정</button>
+					<button type="button" onclick="reply_delete('${reply.cno}');">삭제</button>
+				</p>
+				
+				
 			</div>
 		</li>
 		</c:forEach>
 	</ul>
-</div>
+</div> --%>
 
 <div class="content-box-large">
 	<div class="panel-heading">
@@ -68,9 +170,9 @@
 	<div class="panel-body">
 		<form class="form-horizontal" role="form" method="POST" action="/board/${boardconfig.board_table}/${board.bno}/reply">
 			<div class="form-group">
-				<label for="board_table" class="col-sm-2 control-label">작성자</label>
+				<label for="board_table" class="col-sm-2 control-label">제목</label>
 				<div class="col-sm-10">
-					<input type="text" name="subject" class="form-control"	id="subject"  placeholder="이름" required="required">
+					<input type="text" name="subject" class="form-control"	id="subject"  placeholder="제목" required="required">
 				</div>
 			</div>
 			<div class="form-group">
@@ -90,87 +192,47 @@
 </div>
 
 
-<div>
-	<ul class="media-list">
-		<li class="media">
-			<div class="media-left">
-				<a href="#"> <img class="media-object"
-					data-src="holder.js/64x64" alt="64x64"
-					style="width: 64px; height: 64px;"
-					src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PGRlZnMvPjxyZWN0IHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjEzLjE3OTY4NzUiIHk9IjMyIiBzdHlsZT0iZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQ7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9nPjwvc3ZnPg=="
-					data-holder-rendered="true">
-				</a>
-			</div>
-			<div class="media-body">
-				<h4 class="media-heading" id="media-heading">
-					Media heading<a class="anchorjs-link" href="#media-heading"><span
-						class="anchorjs-icon"></span></a>
-				</h4>
-				<p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-					scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum
-					in vulputate at, tempus viverra turpis.</p>
-				<!-- Nested media object -->
-				<div class="media">
-					<div class="media-left">
-						<a href="#"> <img class="media-object"
-							data-src="holder.js/64x64" alt="64x64"
-							style="width: 64px; height: 64px;"
-							src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PGRlZnMvPjxyZWN0IHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjEzLjE3OTY4NzUiIHk9IjMyIiBzdHlsZT0iZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQ7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9nPjwvc3ZnPg=="
-							data-holder-rendered="true">
-						</a>
-					</div>
-					<div class="media-body">
-						<h4 class="media-heading" id="nested-media-heading">
-							Nested media heading<a class="anchorjs-link"
-								href="#nested-media-heading"><span class="anchorjs-icon"></span></a>
-						</h4>
-						Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-						scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum
-						in vulputate at, tempus viverra turpis.
-						<!-- Nested media object -->
-						<div class="media">
-							<div class="media-left">
-								<a href="#"> <img class="media-object"
-									data-src="holder.js/64x64" alt="64x64"
-									style="width: 64px; height: 64px;"
-									src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PGRlZnMvPjxyZWN0IHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjEzLjE3OTY4NzUiIHk9IjMyIiBzdHlsZT0iZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQ7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9nPjwvc3ZnPg=="
-									data-holder-rendered="true">
-								</a>
-							</div>
-							<div class="media-body">
-								<h4 class="media-heading" id="nested-media-heading">
-									Nested media heading<a class="anchorjs-link"
-										href="#nested-media-heading"><span class="anchorjs-icon"></span></a>
-								</h4>
-								Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-								scelerisque ante sollicitudin commodo. Cras purus odio,
-								vestibulum in vulputate at, tempus viverra turpis.
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- Nested media object -->
-				<div class="media">
-					<div class="media-left">
-						<a href="#"> <img class="media-object"
-							data-src="holder.js/64x64" alt="64x64"
-							style="width: 64px; height: 64px;"
-							src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PGRlZnMvPjxyZWN0IHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjEzLjE3OTY4NzUiIHk9IjMyIiBzdHlsZT0iZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQ7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9nPjwvc3ZnPg=="
-							data-holder-rendered="true">
-						</a>
-					</div>
-					<div class="media-body">
-						<h4 class="media-heading" id="nested-media-heading">
-							Nested media heading<a class="anchorjs-link"
-								href="#nested-media-heading"><span class="anchorjs-icon"></span></a>
-						</h4>
-						Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-						scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum
-						in vulputate at, tempus viverra turpis.
-					</div>
-				</div>
-			</div>
-		</li>
-	</ul>
-</div>
+<script>
+	/* 댓글 수정창 */
+	function reply_modify(idx){
+		if($("#c_"+idx).data("disply") == "hide"){
+			if($("#cr_"+idx).data("disply") != "hide"){
+				reply_reply(idx);
+			}
+			$("#c_"+idx).show();
+			$("#c_"+idx).data("disply","show");
+		}else{
+			$("#c_"+idx).hide();
+			$("#c_"+idx).data("disply","hide");
+		}
+		
+	}
+	/* 대댓글 입력창 */
+	function reply_reply(idx){
+		if($("#cr_"+idx).data("disply") == "hide"){
+			if($("#c_"+idx).data("disply") != "hide"){
+				reply_modify(idx);
+			}
+			$("#cr_"+idx).show();
+			$("#cr_"+idx).data("disply","show");
+		}else{
+			$("#cr_"+idx).hide();
+			$("#cr_"+idx).data("disply","hide");
+		}
+		
+	}
+	/* 댓글 삭제 */
+	function reply_delete(idx){
+		var cno = idx;
+		
+	    if (confirm('복구가 안됩니다. 정말로 삭제하시겠습니까?')) {
+	      $.ajax({
+	        type: 'DELETE',
+	        url: '/board/${boardconfig.board_table}/${board.bno}/reply/'+cno
+	      }).then(function () {
+	        window.location.href = '/board/${boardconfig.board_table}/${board.bno}';
+	      });
+	    }
+	}
+</script>
 <jsp:include page="../footer.jsp"></jsp:include>

@@ -53,4 +53,10 @@ public interface BoardService {
 
 	//댓글 입력
 	public void replyInsert(String board_table, int bno, ReplyVO reply) throws Exception;
+
+	//댓글 수정
+	public void replyUpdate(String board_table, int bno, ReplyVO reply) throws Exception;
+
+	//댓글 삭제
+	public void replyDelete(String board_table, int cno) throws Exception;
 }

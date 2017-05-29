@@ -33,5 +33,17 @@ public interface BoardConfigMapper {
 	public void boardDrop(HashMap<String, Object> map)throws Exception;
 
 	//게시판 시퀀스 삭제
-	public void boardDeleteSequence(HashMap<String, Object> map)throws Exception;
+	public void boardDeleteSequence(HashMap<String, Object> map) throws Exception;
+
+	//댓글 테이블 생성
+	public void replyCreate(HashMap<String, Object> map) throws Exception;
+
+	//댓글 시퀀스 생성
+	public void replyCreateSequence(HashMap<String, Object> map) throws Exception;
+	
+	//댓글 테이블 드롭
+	public void replyDrop(HashMap<String, Object> map)throws Exception;
+	
+	//댓글 시퀀스 삭제
+	public void replyDeleteSequence(HashMap<String, Object> map) throws Exception;
 }

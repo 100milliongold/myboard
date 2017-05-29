@@ -4,11 +4,13 @@ public class ReplyVO {
 	
 	private int cno; //기본값
 	private int bno; //참조 글번호
+	private int depth; //깊이
 	private String user_id; //유저 아이디
 	private String parent_id; //부모글번호
 	private String subject; //제목
 	private String content; //내용
 	private String reg_date; //글쓴일
+	
 	
 	
 	public int getCno() {
@@ -52,5 +54,11 @@ public class ReplyVO {
 	}
 	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
+	}
+	public int getDepth() {
+		return depth;
+	}
+	public void setDepth(int depth) {
+		this.depth = depth;
 	}
 }

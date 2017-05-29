@@ -32,7 +32,7 @@ public class BoardServiceImpl implements BoardService{
 		// TODO Auto-generated method stub
 		
 		//게시판 기본정보 얻기
-    	BoardConfigVO boardconfig = boardConfigMapper.boardConfigView(board_table.toLowerCase());
+    	BoardConfigVO boardconfig = boardConfigMapper.boardConfigView(board_table.toUpperCase());
     	//찾는 게시판이 없을경우
     	if(boardconfig == null){
     		 return ;
@@ -52,7 +52,7 @@ public class BoardServiceImpl implements BoardService{
 	public List<BoardVO> boardList(String board_table) throws Exception {
 		// TODO Auto-generated method stub
 		//게시판 기본정보 얻기
-    	BoardConfigVO boardconfig = boardConfigMapper.boardConfigView(board_table.toLowerCase());
+    	BoardConfigVO boardconfig = boardConfigMapper.boardConfigView(board_table.toUpperCase());
     	
     	//찾는 게시판이 없을경우
     	if(boardconfig == null){
@@ -75,7 +75,7 @@ public class BoardServiceImpl implements BoardService{
 		// TODO Auto-generated method stub
 		
 		//게시판 기본정보 얻기
-    	BoardConfigVO boardconfig = boardConfigMapper.boardConfigView(board_table.toLowerCase());
+    	BoardConfigVO boardconfig = boardConfigMapper.boardConfigView(board_table.toUpperCase());
     	//찾는 게시판이 없을경우
     	if(boardconfig == null){
     		return null;
@@ -102,7 +102,7 @@ public class BoardServiceImpl implements BoardService{
 		// TODO Auto-generated method stub
 		
 		//게시판 기본정보 얻기
-    	BoardConfigVO boardconfig = boardConfigMapper.boardConfigView(board_table.toLowerCase());
+    	BoardConfigVO boardconfig = boardConfigMapper.boardConfigView(board_table.toUpperCase());
     	
     	//찾는 게시판이 없을경우
     	if(boardconfig == null){
@@ -124,7 +124,7 @@ public class BoardServiceImpl implements BoardService{
 	public void hitPlus(String board_table, int bno) throws Exception {
 		// TODO Auto-generated method stub
 		//게시판 기본정보 얻기
-    	BoardConfigVO boardconfig = boardConfigMapper.boardConfigView(board_table.toLowerCase());
+    	BoardConfigVO boardconfig = boardConfigMapper.boardConfigView(board_table.toUpperCase());
     	
     	//찾는 게시판이 없을경우
     	if(boardconfig == null){
@@ -145,7 +145,7 @@ public class BoardServiceImpl implements BoardService{
 		// TODO Auto-generated method stub
 		
 		//게시판 기본정보 얻기
-    	BoardConfigVO boardconfig = boardConfigMapper.boardConfigView(board_table.toLowerCase());
+    	BoardConfigVO boardconfig = boardConfigMapper.boardConfigView(board_table.toUpperCase());
     	//찾는 게시판이 없을경우
     	if(boardconfig == null){
     		return ;
@@ -167,7 +167,7 @@ public class BoardServiceImpl implements BoardService{
 		// TODO Auto-generated method stub
 		
 		//게시판 기본정보 얻기
-    	BoardConfigVO boardconfig = boardConfigMapper.boardConfigView(board_table.toLowerCase());
+    	BoardConfigVO boardconfig = boardConfigMapper.boardConfigView(board_table.toUpperCase());
     	//찾는 게시판이 없을경우
     	if(boardconfig == null){
     		return ;
@@ -186,7 +186,7 @@ public class BoardServiceImpl implements BoardService{
 	public BoardConfigVO boardConfigView(String board_table) throws Exception {
 		// TODO Auto-generated method stub
 		//게시판 기본정보 얻기
-    	BoardConfigVO boardconfig = boardConfigMapper.boardConfigView(board_table.toLowerCase());
+    	BoardConfigVO boardconfig = boardConfigMapper.boardConfigView(board_table.toUpperCase());
     	//찾는 게시판이 없을경우
     	if(boardconfig == null){
     		return null;
@@ -201,7 +201,7 @@ public class BoardServiceImpl implements BoardService{
 	public int boardCount(String board_table) throws Exception {
 		// TODO Auto-generated method stub
 		//게시판 기본정보 얻기
-    	BoardConfigVO boardconfig = boardConfigMapper.boardConfigView(board_table.toLowerCase());
+    	BoardConfigVO boardconfig = boardConfigMapper.boardConfigView(board_table.toUpperCase());
     	//찾는 게시판이 없을경우
     	if(boardconfig == null){
     		return 0;
@@ -239,8 +239,11 @@ public class BoardServiceImpl implements BoardService{
     	map.put("boardconfig", boardconfig); //게시판설정 삽입
     	
     	boardConfigMapper.boardCofigInsert(map); //게시판 설정 생성
-    	boardConfigMapper.boardCreate(map);
-    	boardConfigMapper.boardCreateSequence(map);
+    	boardConfigMapper.boardCreate(map);	//게시판 테이블 생성
+    	boardConfigMapper.boardCreateSequence(map); //게시판 시퀀스 생성
+    	
+    	boardConfigMapper.replyCreate(map); //댓글 테이블 생성
+    	boardConfigMapper.replyCreateSequence(map); //댓글 시퀀스 생성
 	}
 
 	//게시판테이블 수정
@@ -269,6 +272,8 @@ public class BoardServiceImpl implements BoardService{
     	boardConfigMapper.boardConfigDelete(map);
     	boardConfigMapper.boardDrop(map);
     	boardConfigMapper.boardDeleteSequence(map);
+    	boardConfigMapper.replyDrop(map);
+    	boardConfigMapper.replyDeleteSequence(map);
 	}
 
 	//댓글 리스트
@@ -277,7 +282,7 @@ public class BoardServiceImpl implements BoardService{
 		// TODO Auto-generated method stub
 		
 		//게시판 기본정보 얻기
-    	BoardConfigVO boardconfig = boardConfigMapper.boardConfigView(board_table.toLowerCase());
+    	BoardConfigVO boardconfig = boardConfigMapper.boardConfigView(board_table.toUpperCase());
     	//찾는 게시판이 없을경우
     	if(boardconfig == null){
     		return null;
@@ -299,7 +304,7 @@ public class BoardServiceImpl implements BoardService{
 	public void replyInsert(String board_table, int bno, ReplyVO reply) throws Exception {
 		// TODO Auto-generated method stub
 		//게시판 기본정보 얻기
-    	BoardConfigVO boardconfig = boardConfigMapper.boardConfigView(board_table.toLowerCase());
+    	BoardConfigVO boardconfig = boardConfigMapper.boardConfigView(board_table.toUpperCase());
     	//찾는 게시판이 없을경우
     	if(boardconfig == null){
     		return ;
@@ -311,6 +316,45 @@ public class BoardServiceImpl implements BoardService{
     	map.put("reply", reply); //리플 삽입
     	
     	replyMapper.replyInsert(map);
+		
+	}
+
+	//댓글 수정
+	@Override
+	public void replyUpdate(String board_table, int bno, ReplyVO reply) throws Exception {
+		// TODO Auto-generated method stub
+		BoardConfigVO boardconfig = boardConfigMapper.boardConfigView(board_table.toUpperCase());
+    	//찾는 게시판이 없을경우
+    	if(boardconfig == null){
+    		return ;
+    	}
+    	HashMap<String, Object> map = new HashMap<String, Object>();
+    	map.put("boardconfig", boardconfig); //게시판설정 삽입
+    	map.put("bno", bno); //게시판조회번호 삽입
+    	map.put("reply", reply); //리플 삽입
+		
+    	replyMapper.replyUpdate(map);
+	}
+
+	//댓글삭제
+	@Override
+	public void replyDelete(String board_table, int cno) throws Exception {
+		// TODO Auto-generated method stub
+		
+		BoardConfigVO boardconfig = boardConfigMapper.boardConfigView(board_table.toUpperCase());
+    	//찾는 게시판이 없을경우
+    	if(boardconfig == null){
+    		return ;
+    	}
+    	
+    	HashMap<String, Object> map = new HashMap<String, Object>();
+    	map.put("boardconfig", boardconfig); //게시판설정 삽입
+    	map.put("cno", cno); //리플 번호
+    	
+    	System.out.println("board_table:"+boardconfig.getBoard_table());
+    	System.out.println("cno:"+cno);
+		
+    	replyMapper.replyDelete(map);
 		
 	}
 

@@ -5,15 +5,61 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  
 <mapper namespace="com.myapp.board.mapper.ReplyMapper">
 	
-	
+	<!-- 댓글 목록 -->
 	<select id="replyList" parameterType="hashmap" resultType="com.myapp.board.domain.ReplyVO">
-		select * from  reply_${boardconfig.board_table} where bno = #{bno} and PARENT_ID IS NULL
+		select 
+			LEVEL as depth,cno,subject,content 
+			from  reply_${boardconfig.board_table} 
+			where bno = #{bno}
+			START WITH parent_id IS NULL 
+			CONNECT BY PRIOR cno = parent_id 
 	</select>
 	
+	<!-- 댓글 입력 -->
 	<insert id="replyInsert" parameterType="hashmap">
-        insert into reply_${boardconfig.board_table} (CNO,BNO,SUBJECT,CONTENT,REG_DATE)
+        insert 
+        	into 
+        		reply_${boardconfig.board_table} 
+        		(
+        			CNO
+        			,BNO
+        			<if test="state != null">
+						,PARENT_ID
+					</if>
+        			,SUBJECT
+        			,CONTENT
+        			,REG_DATE
+        		)
             values
-        (reply_${boardconfig.board_table}_sequence.nextval,#{bno},#{reply.subject},#{reply.content},SYSDATE)
+        	(
+        		reply_${boardconfig.board_table}_sequence.nextval
+        		,#{bno}
+        		<if test="state != null">
+					,#{reply.parent_id}
+				</if>
+        		,#{reply.subject}
+        		,#{reply.content}
+        		,SYSDATE
+        	)
     </insert>
+    
+    <!-- 댓글 수정 -->
+    <update id="replyUpdate" parameterType="hashmap">
+    	update reply_${boardconfig.board_table}
+    	set
+    		subject = #{reply.subject}
+    		,content = #{reply.content}
+    		,reg_date = sysdate
+    	where
+    		cno = #{reply.cno}
+    </update>
+    
+    <!-- 댓글 삭제 -->
+    <delete id="replyDelete" parameterType="hashmap">
+    	delete from reply_${boardconfig.board_table}
+    	where
+    		cno = #{cno}
+    		or parent_id = #{cno}
+    </delete>
 	
 </mapper>

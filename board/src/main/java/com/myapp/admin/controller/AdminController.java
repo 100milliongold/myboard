@@ -83,7 +83,7 @@ public class AdminController {
     	
     	//게시판 속성보기
         BoardConfigVO boardconfig = boardService.boardConfigView(board_table);
-    	
+
     	//모델겍체 생성
         ModelAndView modelandview = new ModelAndView("/admin/board/boardView");
         modelandview.addObject("boardconfig",boardconfig);
@@ -105,7 +105,6 @@ public class AdminController {
     }
     
     //게시판 관리 - 게시판 삭제
-    //어짜피 갠플젝이니 핫한 하이브리드 방식으로 ㅋ
     @RequestMapping(value="/board/{board_table}", method=RequestMethod.DELETE)
     public ResponseEntity<BoardConfigVO> board_delete(@PathVariable("board_table") String board_table) throws Exception{
     	
