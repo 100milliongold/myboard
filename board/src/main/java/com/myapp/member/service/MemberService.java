@@ -1,7 +1,8 @@
 package com.myapp.member.service;
  
 import java.util.Collection;
- 
+import java.util.List;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,4 +15,9 @@ public interface MemberService extends UserDetailsService {
      public void createUser(MemberVO member);
      public void deleteUser(String membername);
      public PasswordEncoder passwordEncoder();
+     
+     //회원리스트
+     public List<MemberVO> memberList() throws Exception;
+     //회원업데이트
+     public void memberUpdate(String username, MemberVO member) throws Exception;
 }

@@ -33,6 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                    .antMatchers(HttpMethod.GET,"/member/info/**","/admin/**").authenticated()
                    .antMatchers(HttpMethod.GET,"/admin/**").hasAuthority("ADMIN")
                    .anyRequest().permitAll()
+                   .and()
+                   .exceptionHandling().accessDeniedPage("/403") //권한이 없을 경우
               ;
          http
               .formLogin()

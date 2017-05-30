@@ -10,7 +10,7 @@ public class MemberVO implements UserDetails{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -4855890427225819382L;
 	
 	private String username;
 	private String password;
@@ -18,8 +18,8 @@ public class MemberVO implements UserDetails{
 	// 1 : 성공  / 0 : 실패
 	private String is_account_non_expired;
 	private String is_account_non_locked;
-	private String id_credentials_non_expired;
-	private String id_enabled;
+	private String is_credentials_non_expired;
+	private String is_enabled;
 	
 	private Collection<? extends GrantedAuthority> authorities;
 
@@ -56,47 +56,51 @@ public class MemberVO implements UserDetails{
 		this.is_account_non_locked = is_account_non_locked;
 	}
 	public String getId_credentials_non_expired() {
-		return id_credentials_non_expired;
+		return is_credentials_non_expired;
 	}
 	public void setId_credentials_non_expired(String id_credentials_non_expired) {
-		this.id_credentials_non_expired = id_credentials_non_expired;
+		this.is_credentials_non_expired = id_credentials_non_expired;
 	}
 	public String getId_enabled() {
-		return id_enabled;
+		return is_enabled;
 	}
 	public void setId_enabled(String id_enabled) {
-		this.id_enabled = id_enabled;
+		this.is_enabled = id_enabled;
 	}
 	
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
-		return authorities;
+		return this.authorities;
 	}
 	@Override
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub
+		return ("1".equals(this.is_account_non_expired))?true:false;
 //		return (is_account_non_expired=="1")?true:false;
-		return true;
+//		return true;
 	}
 	@Override
 	public boolean isAccountNonLocked() {
 		// TODO Auto-generated method stub
+		return ("1".equals(this.is_account_non_locked))?true:false;
 //		return (is_account_non_locked=="1")?true:false;
-		return true;
+//		return true;
 	}
 	@Override
 	public boolean isCredentialsNonExpired() {
 		// TODO Auto-generated method stub
+		return ("1".equals(this.is_credentials_non_expired))?true:false;
 //		return (id_credentials_non_expired=="1")?true:false;
-		return true;
+//		return true;
 	}
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
+		return ("1".equals(this.is_enabled))?true:false;
 //		return (id_enabled=="1")?true:false;
-		return true;
+//		return true;
 	}
 	
 	public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
@@ -110,9 +114,9 @@ public class MemberVO implements UserDetails{
 		 "username: "+this.username
 		+"\n password: "+this.password
 		+"\n name: "+this.name
-		+"\n is_account_non_expired : "+this.is_account_non_expired
-		+"\n is_account_non_locked: "+this.is_account_non_locked
-		+"\n is_account_non_locked: "+this.is_account_non_locked
-		+"\n is_account_non_locked: "+this.is_account_non_locked;
+		+"\n var is_account_non_expired : "+this.is_account_non_expired
+		+"\n var is_account_non_locked: "+this.is_account_non_locked
+		+"\n var is_credentials_non_expired: "+this.is_credentials_non_expired
+		+"\n var is_enabled: "+this.is_enabled;
 	}
 }

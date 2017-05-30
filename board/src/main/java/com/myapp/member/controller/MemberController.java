@@ -4,7 +4,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -65,6 +67,13 @@ public class MemberController {
     @RequestMapping(value="/login",method=RequestMethod.GET)
     public ModelAndView memberLoginForm(HttpServletRequest request) throws Exception{
     	
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    	System.out.println(auth.toString());
+    	
+//    	if(auth.getAuthorities() != null){
+//    		return (ModelAndView)new ModelAndView("redirect:/");
+//    	}
+    	
     	String referrer = request.getHeader("referer");
 //    	System.out.println("Referer :"+referrer);
         request.getSession().setAttribute("prevPage", referrer);
@@ -78,22 +87,7 @@ public class MemberController {
         return modelandview;
     }
     
-    //로그인
-    @RequestMapping(value="/adminlogin",method=RequestMethod.GET)
-    public ModelAndView adminLoginForm(HttpServletRequest request) throws Exception{
-    	
-    	String referrer = request.getHeader("referer");
-//    	System.out.println("Referer :"+referrer);
-        request.getSession().setAttribute("prevPage", referrer);
-    	
-    	
-    	//모델겍체 생성
-    	ModelAndView modelandview = new ModelAndView("/member/MemberLogin");
-    	
-    	
-    	//뷰파일 불려오기
-        return modelandview;
-    }
+
     
     //마이페이지
     @RequestMapping(value="/info/{username}",method=RequestMethod.GET)

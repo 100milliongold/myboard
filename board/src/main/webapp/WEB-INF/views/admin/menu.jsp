@@ -17,12 +17,20 @@
         -->
         <li class="submenu">
              <a href="#">
-                <i class="glyphicon glyphicon-home" ></i> 사이트관리
-                <span class="caret pull-right"></span>
+                <i class="glyphicon glyphicon-list" ></i> 사이트관리 <span class="caret pull-right"></span>
              </a>
              <!-- Sub menu -->
              <ul>
-                <li><a href="/admin/board"><i class="glyphicon glyphicon-list" style="margin-right: 3px;"></i>게시판관리</a></li>
+                <li><a href="/admin/board">게시판관리</a></li>
+            </ul>
+        </li>
+        <li class="submenu">
+             <a href="#">
+                <i class="glyphicon glyphicon-user" ></i> 회원관리 <span class="caret pull-right"></span>
+             </a>
+             <!-- Sub menu -->
+             <ul>
+                <li><a href="/admin/member">회원관리</a></li>
             </ul>
         </li>
     </ul>

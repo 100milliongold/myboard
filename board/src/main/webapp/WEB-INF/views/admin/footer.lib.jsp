@@ -3,4 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<jsp:include page="./footer.lib.jsp"></jsp:include>
+
+
+    <script src="/resources/admin/js/bootstrap.min.js"></script>
+    <script src="/resources/admin/js/custom.js"></script>
+  </body>
+</html>

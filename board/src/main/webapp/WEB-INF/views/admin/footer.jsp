@@ -8,7 +8,7 @@
 		</div>
     </div>
 
-    <footer>
+    <!-- <footer>
          <div class="container">
          
             <div class="copy text-center">
@@ -16,10 +16,6 @@
             </div>
             
          </div>
-      </footer>
-
+      </footer> -->
+<jsp:include page="./footer.lib.jsp"></jsp:include>
     
-    <script src="/resources/admin/js/bootstrap.min.js"></script>
-    <script src="/resources/admin/js/custom.js"></script>
-  </body>
-</html>

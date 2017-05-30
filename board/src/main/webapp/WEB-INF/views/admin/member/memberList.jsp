@@ -7,7 +7,7 @@
 <jsp:include page="../header.jsp"></jsp:include>
 <div class="content-box-large">
 	<div class="panel-heading">
-		<div class="panel-title">게시판 관리</div>
+		<div class="panel-title">회원 관리</div>
 	</div>
 	<div class="panel-body">
 		<div class="table-responsive">
@@ -15,27 +15,27 @@
 				<thead>
 					<tr>
 						<th>
-							<a href="/admin/board_new">
+							<a href="/admin/member_new">
 								<span class="glyphicon glyphicon-plus"></span>
-	                  			<span class="glyphicon-class">게시판 생성</span>
+	                  			<span class="glyphicon-class">회원 생성</span>
                   			</a>
 						</th>
-						<th>테이블</th>
-						<th>게시판 명</th>
+						<th>회원아이디</th>
+						<th>회원명</th>
 						<th></th>
 						<th></th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="board" items="${list}">
+					<c:forEach var="member" items="${list}">
 						<tr>
 							<td>
-								<a class="btn btn-warning btn-sm" href="/admin/board/${board.board_table}">
+								<a class="btn btn-warning btn-sm" href="/admin/member/${member.username}">
 									수정
 								</a>
 							</td>
-							<td>${board.board_table}</td>
-							<td><a href="/board/${board.board_table}">${board.board_name}</a></td>
+							<td>${member.username}</td>
+							<td>${member.name}</td>
 							<td></td>
 							<td></td>
 						</tr>

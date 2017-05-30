@@ -25,4 +25,10 @@ public interface MemberMapper {
 	public void deleteUser(String username);
 
 	public void deleteAuthority(String username);
+	
+	//회원리스트
+	public List<MemberVO> memberList() throws Exception;
+
+	//회원정보 수정
+	public void memberUpdate(HashMap<String, Object> map) throws Exception;
 }

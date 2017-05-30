@@ -2,6 +2,7 @@ package com.myapp.member.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.annotation.MapperScan;
@@ -32,6 +33,8 @@ public class MemberServiceImpl implements MemberService {
     	  MemberVO member = readUser(username);
     	  //System.out.println(member.toString());
     	  member.setAuthorities(getAuthorities(username));
+    	  
+    	  
           
           return member;
      }
@@ -89,5 +92,43 @@ public class MemberServiceImpl implements MemberService {
 	public PasswordEncoder passwordEncoder() {
 		// TODO Auto-generated method stub
 		return this.passwordEncoder;
+	}
+
+	//회원리스트
+	@Override
+	public List<MemberVO> memberList() throws Exception {
+		// TODO Auto-generated method stub
+		return memberMapper.memberList();
+	}
+
+	//회원수정 - 아이디는 수정못하게
+	@Override
+	public void memberUpdate(String username, MemberVO member) throws Exception {
+		// TODO Auto-generated method stub
+		
+		//회원정보 로드
+		MemberVO memberinfo = memberMapper.readUser(username);
+		if(memberinfo == null) return;
+		
+		
+		//패스워드 수정시
+		if(member.getPassword() != null){
+			String rawPassword = member.getPassword();
+			//패스워드 인코딩
+			String encodedPassword = new BCryptPasswordEncoder().encode(rawPassword);
+			member.setPassword(encodedPassword);
+		}
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+    	map.put("member", member); //입력정보 삽입
+    	map.put("username", username); //수정할 회원
+		
+		try {
+			memberMapper.memberUpdate(map);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.toString());
+		}
+		
 	}
 }

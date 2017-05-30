@@ -14,7 +14,7 @@ public class BoardConfigVO {
 		this.board_name = board_name;
 	}
 	public String getBoard_table() {
-		return board_table;
+		return board_table.toLowerCase();
 	}
 	public void setBoard_table(String board_table) {
 		this.board_table = board_table;

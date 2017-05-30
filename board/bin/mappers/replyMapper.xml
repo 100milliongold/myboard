@@ -23,7 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         		(
         			CNO
         			,BNO
-        			<if test="state != null">
+        			<if test="reply.parent_id != null">
 						,PARENT_ID
 					</if>
         			,SUBJECT
@@ -34,7 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         	(
         		reply_${boardconfig.board_table}_sequence.nextval
         		,#{bno}
-        		<if test="state != null">
+        		<if test="reply.parent_id != null">
 					,#{reply.parent_id}
 				</if>
         		,#{reply.subject}

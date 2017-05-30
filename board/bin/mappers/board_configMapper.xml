@@ -41,7 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </update>
     
     <delete id="boardConfigDelete" parameterType="hashmap">
-    	delete from BOARDCONFIG where BOARD_TABLE = #{board_table}
+    	delete from BOARDCONFIG where BOARD_TABLE = UPPER(#{board_table})
     </delete>
     
     <delete id="boardDrop" parameterType="hashmap">

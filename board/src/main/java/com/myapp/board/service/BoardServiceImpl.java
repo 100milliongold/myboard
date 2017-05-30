@@ -265,9 +265,16 @@ public class BoardServiceImpl implements BoardService{
 	public void boardConfigDelete(String board_table) throws Exception {
 		// TODO Auto-generated method stub
 		
+		//게시판 기본정보 얻기
+    	BoardConfigVO boardconfig = boardConfigMapper.boardConfigView(board_table.toUpperCase());
+    	//찾는 게시판이 없을경우
+    	if(boardconfig == null){
+    		return ;
+    	}
+		
 		//삭제하기 전에 여러파라미터를 해시맵을 통하여 전송
 		HashMap<String, Object> map = new HashMap<String, Object>();
-    	map.put("board_table", board_table); //게시판명 삽입
+    	map.put("board_table", boardconfig.getBoard_table()); //게시판명 삽입
     	
     	boardConfigMapper.boardConfigDelete(map);
     	boardConfigMapper.boardDrop(map);
