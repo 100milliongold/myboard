@@ -68,7 +68,17 @@ public class MemberController {
     public ModelAndView memberLoginForm(HttpServletRequest request) throws Exception{
     	
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    	System.out.println(auth.toString());
+    	Object principal = auth.getPrincipal();
+    	String name = "";
+    	if(principal != null && principal instanceof MemberVO){
+    	    name = ((MemberVO)principal).getName();
+    	}
+    	
+    	System.out.println(name);
+
+
+    	
+//    	System.out.println(auth.toString());
     	
 //    	if(auth.getAuthorities() != null){
 //    		return (ModelAndView)new ModelAndView("redirect:/");
