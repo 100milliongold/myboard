@@ -10,7 +10,9 @@
 <title>홈페이지 테스트</title>
 <link rel="stylesheet" href="/resources/default/css/default.css"> <!-- 메인 -->
 <link rel="stylesheet" href="/resources/default/css/board.css"> <!-- 게시판 -->
-<link rel="stylesheet" href="/resources/default/css/outlogin.css"> <!-- 로그인 -->
+<link rel="stylesheet" href="/resources/default/css/outlogin.css"> <!-- 외부로그인 -->
+<link rel="stylesheet" href="/resources/default/css/member.css"> <!-- 회원로그인 -->
+
 <!-- BootStrap CDN -->
 <!-- 
 <link href="/webjars/bootstrap/3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">

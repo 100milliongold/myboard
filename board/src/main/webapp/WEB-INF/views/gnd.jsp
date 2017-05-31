@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <li class="gnb_1dli" style="z-index: 999">
-	<a href="http://demo.sir.co.kr/gnuboard5/bbs/group.php?gr_id=shop" target="_self" class="gnb_1da">테스트 게시판</a>
+	<a href="/board/pro" target="_self" class="gnb_1da">테스트 게시판</a>
 	<ul class="gnb_2dul">
 		<li class="gnb_2dli"><a href="/board/pro" target="_self" class="gnb_2da">게시판1</a></li>
 	</ul>

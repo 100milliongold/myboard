@@ -47,15 +47,27 @@
 	<section id="bo_vc">
 		<h2>댓글목록</h2>
 		<c:forEach var="reply" items="${reply_list}">
-		<article id="c_${reply.cno}">
+		<article id="c_${reply.cno}" style="margin-left:${(reply.depth-1)*20}px;border-top-color:#e0e0e0">
 			<header>
 				<h1>??? 님의 댓글</h1>
+				<span class="sv_wrap">
+                <a href="#" class="sv_member" onclick="return false;"> ${reply.subject}</a>
+	            </span>
 				작성일 <span class="bo_vc_hdinfo"><time datetime=""></time></span>
 			</header>
 			<!-- 댓글 출력 -->
-			<p>
-			 ${reply.content}
-			</p>
+			<p>${reply.content}</p>
+			<span id="edit_${reply.cno}"></span>
+	        <!-- 수정 -->
+	        <span id="reply_${reply.cno}"></span>
+	        <!-- 답변 -->
+	        <textarea id="save_comment_{reply.cno}" style="display:none">${reply.content}</textarea>
+	        <footer>
+	            <ul class="bo_vc_act">
+	                <li><a href="#" onclick="comment_box('{reply.cno}', 'c'); return false;">답변</a></li>
+	                <li><a href="" onclick="return comment_delete();">삭제</a></li>
+	            </ul>
+	        </footer>
 		</article>
 		</c:forEach>
 	</section>
