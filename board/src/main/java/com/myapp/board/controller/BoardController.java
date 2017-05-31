@@ -61,7 +61,7 @@ public class BoardController {
         
         
         //모델겍체 생성
-        ModelAndView modelandview = new ModelAndView("/board/boardList");
+        ModelAndView modelandview = new ModelAndView("/board/default/boardList");
         modelandview.addObject("list",list);
         modelandview.addObject("boardconfig",boardconfig);
         
@@ -92,7 +92,7 @@ public class BoardController {
         BoardConfigVO boardconfig = boardService.boardConfigView(board_table);
     	
     	//모델겍체 생성
-    	ModelAndView modelandview = new ModelAndView("/board/boardWrite");
+    	ModelAndView modelandview = new ModelAndView("/board/default/boardWrite");
     	modelandview.addObject("boardconfig",boardconfig);
         
     	//뷰파일 불려오기
@@ -120,7 +120,7 @@ public class BoardController {
     	List<ReplyVO> reply_list = boardService.replyList(board_table, bno);
         
         //모델겍체 생성
-    	ModelAndView modelandview = new ModelAndView("/board/boardView");
+    	ModelAndView modelandview = new ModelAndView("/board/default/boardView");
     	modelandview.addObject("boardconfig",boardconfig); //게시판 속성
     	modelandview.addObject("board",board); // 게시판
     	modelandview.addObject("reply_list",reply_list); // 리플
@@ -138,7 +138,7 @@ public class BoardController {
     	
         
         //모델겍체 생성
-    	ModelAndView modelandview = new ModelAndView("/board/boardUpdate");
+    	ModelAndView modelandview = new ModelAndView("/board/default/boardUpdate");
     	modelandview.addObject("boardconfig",boardconfig);
     	modelandview.addObject("board",board);
         

@@ -5,8 +5,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  
 <mapper namespace="com.myapp.board.mapper.BoardMapper">
  
+	<!-- 게시판 글쓰기 -->
     <insert id="boardInsert" parameterType="com.myapp.board.domain.BoardVO">
-        insert into board_${boardconfig.board_table}
+        insert into board_${boardconfig.board_table} (BNO, SUBJECT, CONTENT, WRITER, REG_DATE, HIT)
             values
         (board_${boardconfig.board_table}_sequence.nextval,#{board.subject},#{board.content},#{board.writer},SYSDATE,0)
     </insert>

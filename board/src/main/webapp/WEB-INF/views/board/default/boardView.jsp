@@ -4,7 +4,67 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<jsp:include page="../header.jsp"></jsp:include>
+<jsp:include page="../../header.jsp"></jsp:include>
+<!-- 게시물 읽기 시작 { -->
+<div id="bo_v_table">
+	질문답변
+</div>
+<article id="bo_v" style="width:100%">
+	<header>
+		<h1 id="bo_v_title">${board.subject}</h1>
+	</header>
+	<section id="bo_v_info">
+		<h2>페이지 정보</h2>
+		작성자 <strong>${board.writer}</strong>
+		<span class="sound_only">작성일</span><strong><fmt:formatDate value="${board.reg_date}" pattern="yyyy/ MM/ dd HH:mm" /></strong>
+		조회<strong>${board.hit} 회</strong>
+	</section>
+	<!-- 게시물 상단 버튼 시작 { -->
+	<div id="bo_v_top">
+		<ul class="bo_v_nb">
+			<li><a href="#" class="btn_b01">이전글</a></li>
+			<li><a href="#" class="btn_b01">다음글</a></li>
+		</ul>
+		<ul class="bo_v_com">
+			<li><a href="/board/${boardconfig.board_table}/post/${board.bno}" class="btn_b01">수정</a></li>
+			<form:form	action="/board/${boardconfig.board_table}/post/${board.bno}" method="DELETE">
+			<li><button type="submit" ><a>삭제</a></button></li>
+			</form:form>
+			<li><a href="/board/${boardconfig.board_table}" class="btn_b01">목록</a></li>
+			<li><a href="/board/${boardconfig.board_table}/post" class="btn_b02">글쓰기</a></li>
+		</ul>
+	</div>
+	<!-- } 게시물 상단 버튼 끝 -->
+	<section id="bo_v_atc">
+		<h2 id="bo_v_atc_title">본문</h2>
+		<!-- 본문 내용 시작 { -->
+		<div id="bo_v_con">
+			<p>${board.content}</p>
+		</div>
+		<!-- } 본문 내용 끝 -->
+	</section>
+	<!-- 댓글 시작 { -->
+	<section id="bo_vc">
+		<h2>댓글목록</h2>
+		<c:forEach var="reply" items="${reply_list}">
+		<article id="c_${reply.cno}">
+			<header>
+				<h1>??? 님의 댓글</h1>
+				작성일 <span class="bo_vc_hdinfo"><time datetime=""></time></span>
+			</header>
+			<!-- 댓글 출력 -->
+			<p>
+			 ${reply.content}
+			</p>
+		</article>
+		</c:forEach>
+	</section>
+	<!-- } 댓글 끝 -->
+</article>
+<!-- } 게시판 읽기 끝 -->
+
+
+
 <h3>${boardconfig.board_name} 게시글 상세</h3>
 <div style="padding: 30px;">
 	<div class="form-group">
@@ -235,4 +295,4 @@
 	    }
 	}
 </script>
-<jsp:include page="../footer.jsp"></jsp:include>
+<jsp:include page="../../footer.jsp"></jsp:include>

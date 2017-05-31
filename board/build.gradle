@@ -30,16 +30,26 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
-	
+	/*
+		mysql 커넥션
+	*/
 	compile('org.springframework.boot:spring-boot-starter-jdbc')
 	compile('mysql:mysql-connector-java')
-	
+	/*
+		마이바티스
+	*/
 	compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:1.1.1")
 	compile("org.mybatis:mybatis-spring")
 	compile("org.mybatis:mybatis")
-	
+	/*
+		jstl / 시큐리티
+	*/
 	compile('org.apache.tomcat.embed:tomcat-embed-jasper')
 	compile('javax.servlet:jstl')
 	compile('org.springframework.boot:spring-boot-starter-security')
-	
+	/*
+		webjar - jquery / bootstrap
+	*/
+	compile('org.webjars.npm:jquery:3.2.1')
+	compile('org.webjars.bower:bootstrap:3.3.7')
 }

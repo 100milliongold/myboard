@@ -21,7 +21,7 @@ public class MainController {
 	public ModelAndView main() throws Exception{
 		
 		//모델겍체 생성
-    	ModelAndView modelandview = new ModelAndView("index");
+    	ModelAndView modelandview = new ModelAndView("main");
     	return modelandview;
 	}
 	

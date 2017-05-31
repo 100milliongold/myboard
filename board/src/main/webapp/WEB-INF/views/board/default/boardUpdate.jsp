@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<jsp:include page="../header.jsp"></jsp:include>
+<jsp:include page="../../header.jsp"></jsp:include>
     <h3>게시글 수정</h3>
     <div style="padding : 30px;">
         <form:form commandName="BoardVO" action="/board/${boardconfig.board_table}/post/${board.bno}" method="PATCH">
@@ -19,4 +19,4 @@
           <button type="submit" class="btn btn-default">수정</button>
         </form:form>
     </div>
-<jsp:include page="../footer.jsp"></jsp:include>
+<jsp:include page="../../footer.jsp"></jsp:include>

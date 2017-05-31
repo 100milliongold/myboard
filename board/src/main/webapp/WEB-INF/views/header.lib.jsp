@@ -6,11 +6,20 @@
 <html lang="ko">
 <head>
 <meta http-equiv="Content-Type" content= "text/html; charset=UTF-8">
-<!-- BootStrap CDN -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-
-<script src="/resources/common/js/jquery.min.js"></script>
+<meta http-equiv="imagetoolbar" content="no"> <!-- 그림위에 마우스 오버시 이미지 관련 툴바가 생기지 않는다. -->
 <title>홈페이지 테스트</title>
+<link rel="stylesheet" href="/resources/default/css/default.css"> <!-- 메인 -->
+<link rel="stylesheet" href="/resources/default/css/board.css"> <!-- 게시판 -->
+<link rel="stylesheet" href="/resources/default/css/outlogin.css"> <!-- 로그인 -->
+<!-- BootStrap CDN -->
+<!-- 
+<link href="/webjars/bootstrap/3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="/webjars/bootstrap/3.3.7/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+-->
+<!--[if lte IE 8]>
+<script src="/resources/default/js/html5.js"></script>
+<![endif]-->
+<script src="/webjars/jquery/3.2.1/dist/jquery.min.js"></script>
+<script src="/resources/default/js/jquery.menu.js"></script>
 </head>
 <body>

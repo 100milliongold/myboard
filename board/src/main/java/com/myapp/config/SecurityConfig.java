@@ -22,7 +22,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 	@Override
 	public void configure(WebSecurity web) throws Exception
 	{
-		web.ignoring().antMatchers("/resources/**");
+		//리소스 폴더 보안 무시
+		web.ignoring().antMatchers("/resources/**","/webjars/**");
 	}
 	
 	@Override

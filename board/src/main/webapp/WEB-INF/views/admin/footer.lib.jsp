@@ -5,7 +5,6 @@
 
 
 
-    <script src="/resources/admin/js/bootstrap.min.js"></script>
     <script src="/resources/admin/js/custom.js"></script>
   </body>
 </html>

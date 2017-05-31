@@ -67,22 +67,14 @@ public class MemberController {
     @RequestMapping(value="/login",method=RequestMethod.GET)
     public ModelAndView memberLoginForm(HttpServletRequest request) throws Exception{
     	
-    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    	Object principal = auth.getPrincipal();
-    	String name = "";
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication(); //로그인정보 추출
+    	Object principal = auth.getPrincipal(); // 비회원은 ROLE_ANONYMOUS (String) 반환
+    	
     	if(principal != null && principal instanceof MemberVO){
-    	    name = ((MemberVO)principal).getName();
+//    		MemberVO member = ((MemberVO)principal); //회원정보
+    		return new ModelAndView("redirect:/"); //로그인시 메인으로 리다이렉트
     	}
     	
-    	System.out.println(name);
-
-
-    	
-//    	System.out.println(auth.toString());
-    	
-//    	if(auth.getAuthorities() != null){
-//    		return (ModelAndView)new ModelAndView("redirect:/");
-//    	}
     	
     	String referrer = request.getHeader("referer");
 //    	System.out.println("Referer :"+referrer);

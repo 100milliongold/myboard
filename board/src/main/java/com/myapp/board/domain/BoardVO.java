@@ -4,11 +4,12 @@ import java.util.Date;
  
 public class BoardVO {
  
-    private int bno;
-    private String subject;
-    private String content;
-    private String writer;
-    private Date reg_date;
+    private int bno; //글번호
+    private String subject; //제목
+    private String content; //글내용
+    private String writer; //글쓴이
+    private String username; //회원아이디
+    private Date reg_date; //글쓴일
     
    
     
@@ -63,5 +64,13 @@ public class BoardVO {
     public void setHit(int hit) {
         this.hit = hit;
     }
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
  
 }

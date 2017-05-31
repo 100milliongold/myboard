@@ -9,10 +9,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="/resources/common/js/jquery.min.js"></script>
+<script src="/webjars/jquery/3.2.1/dist/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <!-- Bootstrap -->
-<link href="/resources/admin/css/bootstrap.min.css" rel="stylesheet">
+<link href="/webjars/bootstrap/3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 <!-- styles -->
 <link href="/resources/admin/css/styles.css" rel="stylesheet">
 
