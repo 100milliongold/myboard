@@ -82,8 +82,8 @@ public class BoardServiceImpl implements BoardService{
     	}
 
     	if (page == 0) { page = 1; } // 페이지가 없으면 첫 페이지 (1 페이지)
-    	int from_record = (page - 1) * rows; // 시작 열을 구함
-    	int end_record = ( page * rows )-1; // 마직막 열을 구함
+    	int from_record = (page - 1) * rows+1; // 시작 열을 구함
+    	int end_record = ( page * rows ); // 마직막 열을 구함
     	
     	
     	//게시판리스트를 불려오기전에 해시맵을 통하여 여러개의 정보추출

@@ -7,7 +7,7 @@
 <jsp:include page="../../header.jsp"></jsp:include>
 <!-- 게시물 읽기 시작 { -->
 <div id="bo_v_table">
-	질문답변
+	${boardconfig.board_name}
 </div>
 <article id="bo_v" style="width:100%">
 	<header>
@@ -53,6 +53,9 @@
 				<span class="sv_wrap">
                 <a href="#" class="sv_member" onclick="return false;"> ${reply.subject}</a>
 	            </span>
+	            <c:if test="${reply.depth > 1}">
+	            <img src="/resources/default/img/icon_reply.gif" class="icon_reply" alt="댓글의 댓글">
+	            </c:if>
 				작성일 <span class="bo_vc_hdinfo"><time datetime=""></time></span>
 			</header>
 			<!-- 댓글 출력 -->
@@ -265,6 +268,19 @@
 
 
 <script>
+	/* 본문 삭제 */
+	function bbs_delete(idx){
+		var bno = idx;
+		
+	    if (confirm('복구가 안됩니다. 정말로 삭제하시겠습니까?')) {
+	      $.ajax({
+	        type: 'DELETE',
+	        url: '/board/${boardconfig.board_table}/post/'+bno
+	      }).then(function () {
+	        window.location.href = '/board/${boardconfig.board_table}';
+	      });
+	    }
+	}
 	/* 댓글 수정창 */
 	function reply_modify(idx){
 		if($("#c_"+idx).data("disply") == "hide"){
