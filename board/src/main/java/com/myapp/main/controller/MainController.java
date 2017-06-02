@@ -28,7 +28,7 @@ public class MainController {
 	//권한페이지 - AccessDinied
 	@RequestMapping(value="/403", method={RequestMethod.GET,RequestMethod.POST})
 	public String error403() {
-	    return "403";
+	    return "/error/403";
 	}
 	
 }
